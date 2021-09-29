@@ -1,71 +1,87 @@
 <?php
 
 class DTOUtilisateur{
-    private $idUSer;
-    private $nom;
-    private $prenom;
-    private $login;
-    private $mdp;
-    private $statut;
-    private $typeUSer;
+    private string $idUSer;
+    private string $nom;
+    private string $prenom;
+    private string $login;
+    private string $mdp;
+    private string $statut;
+    private string $role;
+    private string $token;
 
 
     //création des accesseurs getteurs et setteurs pour créer chaque utilisateur
     //pour les données de la table Utilisateur
+
     public function setNom($nom)
     {
         $this->nom = $nom;
     }
 
-    public function getNom(){
+    public function getNom(): string
+    {
         return $this->nom;
     }
-
     public function setPrenom($prenom){
-        $this->prenom;
+        $this->prenom=$prenom;
     }
 
-    public function getPrenom(){
+    public function getPrenom(): string
+    {
         return $this->prenom;
     }
 
     public function setLogin($login){
-        $this->login;
+        $this->login=$login;
     }
 
-    public function getLogin(){
+    public function getLogin(): string
+    {
         return $this->login;
     }
 
     public function setMdp($mdp){
-        $this->mdp;
+        $this->mdp=$mdp;
     }
 
-    public function getMdp(){
+    public function getMdp(): string
+    {
         return $this->mdp;
     }
 
-    public function getStatut(){
+    public function getStatut(): string
+    {
         return $this->statut;
     }
 
     public function setStatut($statut){
-        $this->statut;
+        $this->statut=$statut;
     }
 
-    public function getTypeUser(){
-        return $this->typeUSer;
-    }
-
-    public function setTypeUser($typeUser){
-        $this->typeUSer;
-    }
-
-
-    public function getIdUSer()
+    public function getIdUSer(): string
     {
         return $this->idUSer;
     }
+
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    public function setRole($role){
+        $this->role=$role;
+    }
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    public function setToken($token)
+    {
+        $this->token=$token;
+    }
+
 }
 
 ?>
