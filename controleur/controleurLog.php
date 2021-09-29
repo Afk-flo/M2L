@@ -1,8 +1,6 @@
 <?php
 require_once("../lib/authentification.php");
 
-
-
 if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
     $login = htmlspecialchars($_POST["login"]);
     $mdp =  htmlspecialchars($_POST["mdp"]);
