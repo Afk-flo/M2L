@@ -62,7 +62,6 @@ class DTOUtilisateur{
     }
 
 
-
     public function getIdUSer()
     {
         return $this->idUSer;
