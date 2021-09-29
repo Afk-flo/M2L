@@ -16,6 +16,13 @@ require_once('../modele/dao/dBConnex.php');
 
 class authentification {
 
+    private $db;
+
+    function __construct() {
+        $this->db = DBConnex::getInstance();
+    }
+
+
     public function isInRow(string $data, string $champ, string $table) : bool {
         $req = $this->db->prepare("SELECT $champ FROM $table WHERE $data = ?");
         $req->execute(array($champ, $table, $data));

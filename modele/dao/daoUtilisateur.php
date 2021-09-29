@@ -1,7 +1,6 @@
 <?php 
-
+require_once('modele/dto/dtoUtilisateur.php');
 require_once('dBConnex.php');
-require_once('M2L/modele/dto/dtoUtilisateur.php');
 // Class dao -> Actions sur l'objet utilisateurs (crud)
 
 class daoUtilisateur {
