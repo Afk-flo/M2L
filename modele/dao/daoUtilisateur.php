@@ -19,10 +19,21 @@ class daoUtilisateur {
      * @param int $id 
      * @return dtoUtilisateur|null 
      */
-    public function getOneOrNull(int $id) : ?dtoUtilisateur {
+    public function getOneOrNull(int $id = null, string $login = null) : ?dtoUtilisateur {
+
+        if($id) {
         // On récupère avec l'user avec une requête SQL 
         $req = $this->db->prepare('SELECT * FROM utilisateur WHERE idUser = ?');
         $req->execute(array($id));
+
+        } else if($login) {
+        $req = $this->db->prepare('SELECT * FROM utilisateur WHERE login = ?');
+        $req->execute(array($login));
+        } else {
+            // Si les deux sont null - hmmm 
+            Header('Location : ../error=log');
+        }
+        
         
         // On fetch en objet si possible sinon, on renvoie null 
         try {
