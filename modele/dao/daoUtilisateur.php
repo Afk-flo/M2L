@@ -31,6 +31,16 @@ class daoUtilisateur {
            
             $req->setFetchMode(PDO::FETCH_CLASS, 'dtoUtilisateur');
             $data = $req->fetch();
+            
+            $reqClub = $this->db->prepare('SELECT nomClub FROM IdClub as c INNER JOIN utilisateur AS u ON c.idClub = u.idClub WHERE idUser = ?');
+            $reqClub->execute(array($id));
+    
+            $data->setClub($reqClub);
+    
+            $reqLigue = $this->db->prepare('SELECT nomLigue FROM ligue as l INNER JOIN utilisateur AS u ON l.idLigue = u.idLigue WHERE idUser = ?');
+            $reqLigue->execute(array($id));
+    
+            $data->setLigue($reqLigue);
 
             return $data;
 
@@ -38,15 +48,7 @@ class daoUtilisateur {
             return null;
         }
 
-        $reqClub = $this->db->prepare('SELECT nomClub FROM IdClub as c INNER JOIN utilisateur AS u ON c.idClub = u.idClub WHERE idUser = ?');
-        $reqClub->execute(array($id));
-
-        $data->setClub($reqClub);
-
-        $reqLigue = $this->db->prepare('SELECT nomLigue FROM ligue as l INNER JOIN utilisateur AS u ON l.idLigue = u.idLigue WHERE idUser = ?');
-        $reqLigue->execute(array($id));
-
-        $data->setLigue($reqLigue);
+       
     }
 
     /**
