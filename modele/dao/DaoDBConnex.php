@@ -1,8 +1,7 @@
 <?php
 
-require_once('param.php');
 
-class DBConnex extends PDO{
+class DaoDBConnex extends PDO{
     
     private static $instance;
     
@@ -15,7 +14,7 @@ class DBConnex extends PDO{
     
     private function __construct(){
         try {
-            parent::__construct(Param::$base ,Param::$user, Param::$pass);
+            parent::__construct(DaoParam::$base ,DaoParam::$user, DaoParam::$pass);
         } catch (Exception $e) {
             echo $e->getMessage();
             die("Impossible de se connecter. " );

@@ -2,6 +2,7 @@
 spl_autoload_register('Autoloader::autoloadDto');
 spl_autoload_register('Autoloader::autoloadDao');
 spl_autoload_register('Autoloader::autoloadLib');
+spl_autoload_register('Autoloader::autoloadController');
 
 
 class Autoloader{
@@ -20,6 +21,13 @@ class Autoloader{
             require $file;
         }
         
+    }
+
+    static function autoloadController($class) {
+        $file = 'controleur/' . lcfirst($class) . '.php';
+        if(is_file($file)&& is_readable($file)){
+            require $file;
+        }
     }
     
     static function autoloadDao($class){

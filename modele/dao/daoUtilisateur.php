@@ -1,16 +1,18 @@
 <?php
+/*
 require_once('dBConnex.php');
 //require_once('../dto/dtoUtilisateur.php');
 require_once('../dto/dtoUtilisateur.php');
+*/
 
 // Class dao -> Actions sur l'objet utilisateurs (crud)
 
-class daoUtilisateur {
+class DaoUtilisateur {
 
     private $db;
 
     function __construct() {
-        $this->db = DBConnex::getInstance();
+        $this->db = DaoDBConnex::getInstance();
     }
 
 
@@ -18,9 +20,9 @@ class daoUtilisateur {
      * Permet de récupérer un utilisateur grâce à son ID ou null s'il n'existe pas
      *
      * @param int $id
-     * @return dtoUtilisateur|null - Un utilisateur ou null|null
+     * @return DtoUtilisateur|null - Un utilisateur ou null|null
      */
-    public function getOneOrNull(int $id) : ?dtoUtilisateur {
+    public function getOneOrNull(int $id) : ?DtoUtilisateur {
 
         // On récupère avec l'user avec une requête SQL
         $req = $this->db->prepare('SELECT * FROM utilisateur WHERE idUser = ?');
@@ -29,7 +31,7 @@ class daoUtilisateur {
         // On fetch en objet si possible sinon, on renvoie null
         try {
            
-            $req->setFetchMode(PDO::FETCH_CLASS, 'dtoUtilisateur');
+            $req->setFetchMode(PDO::FETCH_CLASS, 'DtoUtilisateur');
             $data = $req->fetch();
             
             $reqClub = $this->db->prepare('SELECT nomClub FROM IdClub as c INNER JOIN utilisateur AS u ON c.idClub = u.idClub WHERE idUser = ?');
@@ -63,7 +65,7 @@ class daoUtilisateur {
 
         // On récupère si possible
         try {
-            $full = $req->fetchAll(PDO::FETCH_CLASS, 'dtoUtilisateur');
+            $full = $req->fetchAll(PDO::FETCH_CLASS, 'DtoUtilisateur');
             return $full;
 
         } catch(Exception $e) {
@@ -75,20 +77,20 @@ class daoUtilisateur {
     /**
      * Permet de créer un utilisateur dans la base de données
      *
-     * @param dtoUtilisateur|null - Un utilisateur ou null $user
+     * @param DtoUtilisateur|null - Un utilisateur ou null $user
      * @return void
      */
-    public function create(dtoUtilisateur $user) : void {
+    public function create(DtoUtilisateur $user) : void {
 
     }
 
     /**
      * Permet de modifier un utilisateur dans la base de données
      *
-     * @param dtoUtilisateur|null - Un utilisateur ou null
+     * @param DtoUtilisateur|null - Un utilisateur ou null
      * @return bool
      */
-    public function update(dtoUtilisateur $user) : bool {
+    public function update(DtoUtilisateur $user) : bool {
         return true;
     }
 
@@ -104,33 +106,16 @@ class daoUtilisateur {
     }
 
 
-    /**
-     * Permet de savoir si une donnée est dans un champ (si la row ne retourne pas 0)
-     *
-     * @param string $data - Donnée du Where
-     * @param string $champ - Le champ à selectionner
-     * @param string $table - La table requise
-     * @return bool - True si dans une ligne / False sinon
-     */
-    public function isInRow(string $data, string $champ = "*", string $table) : bool {
-        $req = $this->db->prepare("SELECT $champ FROM $table WHERE $data = ?");
-        $req->execute(array($champ, $table, $data));
-        $req->fetchAll();
-        if($req->rowCount() == 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+ 
 
     /**
      * Méthode permettant à un utilisateur de s'identifier
      *
      * @param string $login - Identifiant de connexion
      * @param string $mdp - Mot de passe
-     * @return dtoUtilisateur|null - Un utilisateur ou null s'il ne trouve rien
+     * @return DtoUtilisateur|null - Un utilisateur ou null s'il ne trouve rien
      */
-    public function login(string $login, string $mdp) : ?dtoUtilisateur {
+    public function login(string $login, string $mdp) : ?DtoUtilisateur {
 
         // On vérifie d'abord que l'id est dans la DB
         $req = $this->db->prepare("SELECT * FROM utilisateur WHERE login = ?");

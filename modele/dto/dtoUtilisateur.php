@@ -1,6 +1,6 @@
 <?php
 
-class dtoUtilisateur{
+class DtoUtilisateur{
     private string $idUser;
     private string $nom;
     private string $prenom;
