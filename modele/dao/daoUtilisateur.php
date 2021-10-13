@@ -23,7 +23,7 @@ class daoUtilisateur {
     public function getOneOrNull(int $id) : ?dtoUtilisateur {
 
         // On récupère avec l'user avec une requête SQL
-        $req = $this->db->prepare('SELECT idUser, Nom, mdp, token FROM utilisateur WHERE idUser = ?');
+        $req = $this->db->prepare('SELECT * FROM utilisateur WHERE idUser = ?');
         $req->execute(array($id));
 
         // On fetch en objet si possible sinon, on renvoie null

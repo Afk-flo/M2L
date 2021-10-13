@@ -1,10 +1,11 @@
 <?php
 
 require_once('../modele/dao/daoUtilisateur.php');
+require_once('../lib/Securite.php');
 
 if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
-    $login = htmlspecialchars($_POST["login"]);
-    $mdp =  htmlspecialchars($_POST["mdp"]);
+    $login = Securite::nettoyage($_POST["login"]);
+    $mdp =  Securite::nettoyage($_POST["mdp"]);
 
     $userDAO = new daoUtilisateur();
     $user = $userDAO->login($login,$mdp);
