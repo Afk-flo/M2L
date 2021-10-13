@@ -1,7 +1,5 @@
 <?php
 
-require_once('param.php');
-
 class DBConnex extends PDO{
     
     private static $instance;

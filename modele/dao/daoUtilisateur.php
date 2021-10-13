@@ -1,6 +1,4 @@
 <?php 
-require_once('modele/dto/dtoUtilisateur.php');
-require_once('dBConnex.php');
 // Class dao -> Actions sur l'objet utilisateurs (crud)
 
 class daoUtilisateur {
@@ -36,7 +34,8 @@ class daoUtilisateur {
         
         // On fetch en objet si possible sinon, on renvoie null 
         try {
-            $req->setFetchMode(PDO::FETCH_CLASS, get_class("dtoUtilisateur"));
+            $user = new dtoUtilisateur();
+            $req->setFetchMode(PDO::FETCH_CLASS, get_class($user));
             $data = $req->fetch();
             return $data;
 
@@ -57,7 +56,8 @@ class daoUtilisateur {
 
         // On récupère si possible 
         try {
-            $full = $req->fetchAll(PDO::FETCH_CLASS, get_class('dtoUtilisateur'));
+            $user = new dtoUtilisateur();
+            $full = $req->fetchAll(PDO::FETCH_CLASS, get_class($user));
             return $full;
 
         } catch(Exception $e) {
