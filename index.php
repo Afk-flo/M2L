@@ -1,5 +1,12 @@
 <?php require_once 'lib/autoLoader.php';
- session_start();?>
+ session_start();
+	
+ // S'il y a une erreur, on met en place une petite alerte avec les informations 
+ if(isset($_SESSION['error'])) {
+	echo $_SESSION['error'];
+ }	
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
