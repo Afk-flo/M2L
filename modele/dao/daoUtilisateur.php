@@ -17,21 +17,11 @@ class daoUtilisateur {
      * @param int $id 
      * @return dtoUtilisateur|null - Un utilisateur ou null|null 
      */
-    public function getOneOrNull(int $id = null, string $login = null) : ?dtoUtilisateur {
+    public function getOneOrNull(int $id) : ?dtoUtilisateur {
 
-        if($id) {
         // On récupère avec l'user avec une requête SQL 
         $req = $this->db->prepare('SELECT * FROM utilisateur WHERE idUser = ?');
         $req->execute(array($id));
-
-        } else if($login) {
-        $req = $this->db->prepare('SELECT * FROM utilisateur WHERE login = ?');
-        $req->execute(array($login));
-        } else {
-            // Si les deux sont null - hmmm 
-            Header('Location : ../error=log');
-        }
-        
         
         // On fetch en objet si possible sinon, on renvoie null 
         try {
@@ -128,12 +118,17 @@ class daoUtilisateur {
     public function login(string $login, string $mdp) : ?dtoUtilisateur {
 
         // On vérifie d'abord que l'id est dans la DB 
-        if(!$this->isInRow($login, "login", "utilisateur")) {
+        $req = $this->db->prepare("SELECT * FROM utilisateur WHERE login = ?");
+        $req->execute(array($login));
+        $data = $req->fetch();
+        var_dump($data);
+        if(!isset($data['idUser']) && $data['idUser'] == null ) {
             Header('Location: ../?error=log');
-
+            die();
         } else {
+
             // Sinon, on récupère les infos et le mdp 
-            $user = $this->getOneOrNull($login);
+            $user = $this->getOneOrNull($data['mdp']);
 
             if(password_verify($mdp, $user->getMdp())) {
                 // Créer nos sessions et return 
@@ -143,7 +138,7 @@ class daoUtilisateur {
                 
                 return $user;
             } else {
-                Header('Location: ../?error=log');
+                Header('Location: ../?error=log2');
             }
 
          }
