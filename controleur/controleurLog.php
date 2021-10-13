@@ -1,9 +1,8 @@
 <?php
 
-
 if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
-    $login = securite::nettoyage($_POST["login"]);
-    $mdp =  securite::nettoyage($_POST["mdp"]);
+    $login = Securite::nettoyage($_POST["login"]);
+    $mdp =  Securite::nettoyage($_POST["mdp"]);
 
     $userDAO = new DaoUtilisateur();
     $user = $userDAO->login($login,$mdp);

@@ -7,7 +7,7 @@ class DtoUtilisateur{
     private string $login;
     private string $mdp;
     private string $statut;
-    private string $fonction;
+    private string $idFonct;
     private string $token;
     private string $club;
     private string $ligue;
@@ -68,11 +68,11 @@ class DtoUtilisateur{
 
     public function getFonction(): string
     {
-        return $this->fonction;
+        return $this->idFonct;
     }
 
     public function setFonction($role){
-        $this->fonction=$role;
+        $this->idFonct=$role;
     }
     public function getToken(): string
     {

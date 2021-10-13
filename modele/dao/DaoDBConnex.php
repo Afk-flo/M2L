@@ -7,7 +7,7 @@ class DaoDBConnex extends PDO{
     
     public static function getInstance(){
         if ( !self::$instance ){
-            self::$instance = new DBConnex();
+            self::$instance = new DaoDBConnex();
         }
         return self::$instance;
     }

@@ -3,7 +3,7 @@
 
 if(!isset($_SESSION['identification']) || !$_SESSION['identification']){
 
-	$formulaireConnexion = new Formulaire('post', 'controleur/controleurLog.php', 'fConnexion', 'fConnexion');
+	$formulaireConnexion = new Formulaire('post', 'index.php?m2lMP=log', 'fConnexion', 'fConnexion');
 	
 	$formulaireConnexion->ajouterComposantLigne($formulaireConnexion->creerLabel('Identifiant :'));
 	$formulaireConnexion->ajouterComposantLigne($formulaireConnexion->creerInputTexte('login', 'login', '', 1, 'Entrez votre identifiant', ''));

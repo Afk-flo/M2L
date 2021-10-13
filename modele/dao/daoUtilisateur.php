@@ -1,9 +1,4 @@
 <?php
-/*
-require_once('dBConnex.php');
-//require_once('../dto/dtoUtilisateur.php');
-require_once('../dto/dtoUtilisateur.php');
-*/
 
 // Class dao -> Actions sur l'objet utilisateurs (crud)
 
@@ -33,17 +28,21 @@ class DaoUtilisateur {
            
             $req->setFetchMode(PDO::FETCH_CLASS, 'DtoUtilisateur');
             $data = $req->fetch();
+
+            
             
             $reqClub = $this->db->prepare('SELECT nomClub FROM IdClub as c INNER JOIN utilisateur AS u ON c.idClub = u.idClub WHERE idUser = ?');
             $reqClub->execute(array($id));
-    
-            $data->setClub($reqClub);
+            $club = $reqClub->fetch();
+            $data->setClub($club['nomClub']);
     
             $reqLigue = $this->db->prepare('SELECT nomLigue FROM ligue as l INNER JOIN utilisateur AS u ON l.idLigue = u.idLigue WHERE idUser = ?');
             $reqLigue->execute(array($id));
-    
-            $data->setLigue($reqLigue);
+            $ligue = $reqLigue->fetch();
 
+            $data->setLigue($ligue['nomLigue']);
+            
+            var_dump($data);
             return $data;
 
         } catch (Exception $e) {

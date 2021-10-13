@@ -1,6 +1,6 @@
 <?php 
 
-abstract class Securite {
+class Securite {
 
     const BLACK_LIST = "<%/';";
 
