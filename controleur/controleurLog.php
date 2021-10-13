@@ -6,9 +6,10 @@ if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
     $login = htmlspecialchars($_POST["login"]);
     $mdp =  htmlspecialchars($_POST["mdp"]);
 
-    $user = new daoUtilisateur();
+    $userDAO = new daoUtilisateur();
+    $user = $userDAO->login($login,$mdp);
 
-    if($user->login($login,$mdp)){
+    if($user != null ){
         require_once ("../vue/vuePanel.php");
     }
     else{
