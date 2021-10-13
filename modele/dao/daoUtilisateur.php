@@ -1,5 +1,8 @@
-<?php 
+<?php
 require_once('dBConnex.php');
+//require_once('../dto/dtoUtilisateur.php');
+require_once('/Applications/MAMP/htdocs/2A/AP 3.1 - M2L Site Dynamique/ressources/final/modele/dto/dtoUtilisateur.php');
+
 // Class dao -> Actions sur l'objet utilisateurs (crud)
 
 class daoUtilisateur {
@@ -12,22 +15,23 @@ class daoUtilisateur {
 
 
     /**
-     * Permet de récupérer un utilisateur grâce à son ID ou null s'il n'existe pas 
-     * 
-     * @param int $id 
-     * @return dtoUtilisateur|null - Un utilisateur ou null|null 
+     * Permet de récupérer un utilisateur grâce à son ID ou null s'il n'existe pas
+     *
+     * @param int $id
+     * @return dtoUtilisateur|null - Un utilisateur ou null|null
      */
     public function getOneOrNull(int $id) : ?dtoUtilisateur {
 
-        // On récupère avec l'user avec une requête SQL 
+        // On récupère avec l'user avec une requête SQL
         $req = $this->db->prepare('SELECT * FROM utilisateur WHERE idUser = ?');
         $req->execute(array($id));
-        
-        // On fetch en objet si possible sinon, on renvoie null 
+
+        // On fetch en objet si possible sinon, on renvoie null
         try {
             $user = new dtoUtilisateur();
             $req->setFetchMode(PDO::FETCH_CLASS, get_class($user));
             $data = $req->fetch();
+            var_dump($data);
             return $data;
 
         } catch (Exception $e) {
@@ -37,15 +41,15 @@ class daoUtilisateur {
 
     /**
      * Permet de récupérer la liste des utilisateurs ou null si elle ne contient rien
-     * 
-     * @return []dtoUtilisateur|null - Un utilisateur ou null 
+     *
+     * @return []dtoUtilisateur|null - Un utilisateur ou null
      */
-    public function getAllOrNull() : ?dtoUtilisateur {
-        // On récupère la liste 
+    public function getAllOrNull() : ?array {
+        // On récupère la liste
         $req = $this->db->prepare('SELECT * FROM utilisateur');
         $req->execute();
 
-        // On récupère si possible 
+        // On récupère si possible
         try {
             $user = new dtoUtilisateur();
             $full = $req->fetchAll(PDO::FETCH_CLASS, get_class($user));
@@ -58,10 +62,10 @@ class daoUtilisateur {
 
 
     /**
-     * Permet de créer un utilisateur dans la base de données 
-     * 
+     * Permet de créer un utilisateur dans la base de données
+     *
      * @param dtoUtilisateur|null - Un utilisateur ou null $user
-     * @return void 
+     * @return void
      */
     public function create(dtoUtilisateur $user) : void {
 
@@ -69,20 +73,20 @@ class daoUtilisateur {
 
     /**
      * Permet de modifier un utilisateur dans la base de données
-     * 
+     *
      * @param dtoUtilisateur|null - Un utilisateur ou null
      * @return bool
      */
     public function update(dtoUtilisateur $user) : bool {
-        return true; 
+        return true;
     }
 
 
     /**
-     * Permet de supprimer un utilisateur en se basant sur son id 
-     * 
-     * @param id l'id bdd 
-     * @return bool action true¬false sur execution 
+     * Permet de supprimer un utilisateur en se basant sur son id
+     *
+     * @param int $id l'id bdd
+     * @return bool action true¬false sur execution
      */
     public function delete(int $id) : bool {
         return true;
@@ -91,10 +95,10 @@ class daoUtilisateur {
 
     /**
      * Permet de savoir si une donnée est dans un champ (si la row ne retourne pas 0)
-     * 
-     * @param string $data - Donnée du Where 
-     * @param string $champ - Le champ à selectionner 
-     * @param string $table - La table requise 
+     *
+     * @param string $data - Donnée du Where
+     * @param string $champ - Le champ à selectionner
+     * @param string $table - La table requise
      * @return bool - True si dans une ligne / False sinon
      */
     public function isInRow(string $data, string $champ = "*", string $table) : bool {
@@ -110,32 +114,34 @@ class daoUtilisateur {
 
     /**
      * Méthode permettant à un utilisateur de s'identifier
-     * 
+     *
      * @param string $login - Identifiant de connexion
-     * @param string $mdp - Mot de passe 
+     * @param string $mdp - Mot de passe
      * @return dtoUtilisateur|null - Un utilisateur ou null s'il ne trouve rien
      */
     public function login(string $login, string $mdp) : ?dtoUtilisateur {
 
-        // On vérifie d'abord que l'id est dans la DB 
+        // On vérifie d'abord que l'id est dans la DB
         $req = $this->db->prepare("SELECT * FROM utilisateur WHERE login = ?");
         $req->execute(array($login));
         $data = $req->fetch();
-        var_dump($data);
+
         if(!isset($data['idUser']) && $data['idUser'] == null ) {
             Header('Location: ../?error=log');
-            die();
+
         } else {
 
-            // Sinon, on récupère les infos et le mdp 
-            $user = $this->getOneOrNull($data['mdp']);
+            // Sinon, on récupère les infos et le mdp
+            $user = $this->getOneOrNull(intval($data['mdp']));
+            var_dump($user);
+
 
             if(password_verify($mdp, $user->getMdp())) {
-                // Créer nos sessions et return 
+                // Créer nos sessions et return
                 $_SESSION['IP'] = $_SERVER['REMOTE_ADDR'];
                 $_SESSION['AGENT'] = $_SERVER['USER_AGENT'];
                 $_SESSION['TOKEN'] = $user->getToken();
-                
+
                 return $user;
             } else {
                 Header('Location: ../?error=log2');
