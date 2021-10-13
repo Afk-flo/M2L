@@ -28,6 +28,7 @@ if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
             default:
                 $userDAO->deconnexion();
                 $_SESSION['error'] = "Erreur dans l'initialisation du profil - contactez l'administrateur.";
+                require dispatcher::dispatch("logOut");
         }
     }
     else{

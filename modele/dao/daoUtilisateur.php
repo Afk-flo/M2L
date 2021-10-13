@@ -105,6 +105,16 @@ class DaoUtilisateur {
     }
 
 
+    /**
+     * Méthode permettant de se déconnecter 
+     * 
+     * @return void 
+     */
+    public function deconnexion() {
+        $_SESSION = [];
+        session_destroy();
+    }
+
  
 
     /**
