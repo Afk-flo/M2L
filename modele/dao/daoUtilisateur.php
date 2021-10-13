@@ -1,7 +1,7 @@
 <?php
 require_once('dBConnex.php');
 //require_once('../dto/dtoUtilisateur.php');
-require_once('/Applications/MAMP/htdocs/2A/AP 3.1 - M2L Site Dynamique/ressources/final/modele/dto/dtoUtilisateur.php');
+require_once('../dto/dtoUtilisateur.php');
 
 // Class dao -> Actions sur l'objet utilisateurs (crud)
 
@@ -37,6 +37,16 @@ class daoUtilisateur {
         } catch (Exception $e) {
             return null;
         }
+
+        $reqClub = $this->db->prepare('SELECT nomClub FROM IdClub as c INNER JOIN utilisateur AS u ON c.idClub = u.idClub WHERE idUser = ?');
+        $reqClub->execute(array($id));
+
+        $data->setClub($reqClub);
+
+        $reqLigue = $this->db->prepare('SELECT nomLigue FROM ligue as l INNER JOIN utilisateur AS u ON l.idLigue = u.idLigue WHERE idUser = ?');
+        $reqLigue->execute(array($id));
+
+        $data->setLigue($reqLigue);
     }
 
     /**

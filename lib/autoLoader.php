@@ -7,7 +7,7 @@ spl_autoload_register('Autoloader::autoloadLib');
 class Autoloader{
     
     static function autoloadDto($class){
-        $file = 'modeles/dto/' . lcfirst($class) . '.php';
+        $file = 'modele/dto/' . lcfirst($class) . '.php';
         if(is_file($file)&& is_readable($file)){
             require $file;
         }
@@ -23,7 +23,7 @@ class Autoloader{
     }
     
     static function autoloadDao($class){
-        $file = 'modeles/dao/' . lcfirst($class) . '.php';
+        $file = 'modele/dao/' . lcfirst($class) . '.php';
         if(is_file($file)&& is_readable($file)){
             require $file;
         }
