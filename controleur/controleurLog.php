@@ -10,7 +10,7 @@ if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
     if($user != null ){
         switch($user->getFonction()) {
             case 1: 
-                require_once("../vue/vueIntervenantSalarie.php");
+                require_once("vue/vueIntervenantSalarie.php");
                 break;
             case 2:
                 require_once("../vue/vuePanel.php");
