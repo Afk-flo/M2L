@@ -8,22 +8,21 @@ if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
     $user = $userDAO->login($login,$mdp);
 
     if($user != null ){
-        // require_once ("../vue/vuePanel.php");
         switch($user->getFonction()) {
             case 1: 
-                require_once("../vue/");
+                require_once("../vue/vueIntervenantSalarie.php");
                 break;
             case 2:
-                require_once("../vue/");
+                require_once("../vue/vuePanel.php");
                 break;
             case 3:
-                require_once("../vue/");
+                require_once("../vue/vueResponsableFormation.php");
                 break;
             case 4:
-                require_once("../vue/");
+                require_once("../vue/vueIntervenantBenevole.php");
                 break;
             case 5:
-                require_once("../vue/");
+                require_once("../vue/vueGerantRH.php");
                 break;
             default:
                 $userDAO->deconnexion();
