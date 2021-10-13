@@ -16,7 +16,7 @@ class Autoloader{
     }
     
     static function autoloadLib($class){
-        $file = 'lib/' . lcfirst($class) . '.php';
+        $file = 'lib/' . $class . '.php';
         if(is_file($file)&& is_readable($file)){
             require $file;
         }
