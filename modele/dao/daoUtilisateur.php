@@ -1,4 +1,5 @@
 <?php 
+require_once('dBConnex.php');
 // Class dao -> Actions sur l'objet utilisateurs (crud)
 
 class daoUtilisateur {

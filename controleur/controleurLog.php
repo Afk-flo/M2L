@@ -1,15 +1,18 @@
 <?php
 
+require_once('../modele/dao/daoUtilisateur.php');
+
 if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
     $login = htmlspecialchars($_POST["login"]);
     $mdp =  htmlspecialchars($_POST["mdp"]);
 
-    $authentification = new authentification();
+    $user = new daoUtilisateur();
 
-    if($authentification->login($login,$mdp)){
+    if($user->login($login,$mdp)){
         require_once ("../vue/vuePanel");
     }
     else{
+        $_SESSION['error'] = "Identifiants incorrects";
         Header("Location:../vue/vueConnexion.php");
     }
 }
