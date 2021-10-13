@@ -9,7 +9,7 @@ if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
     $user = new daoUtilisateur();
 
     if($user->login($login,$mdp)){
-        require_once ("../vue/vuePanel");
+        require_once ("../vue/vuePanel.php");
     }
     else{
         $_SESSION['error'] = "Identifiants incorrects";

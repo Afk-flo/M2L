@@ -28,10 +28,8 @@ class daoUtilisateur {
 
         // On fetch en objet si possible sinon, on renvoie null
         try {
-            $user = new dtoUtilisateur();
-            $req->setFetchMode(PDO::FETCH_CLASS, get_class($user));
+            $req->setFetchMode(PDO::FETCH_CLASS, 'dtoUtilisateur');
             $data = $req->fetch();
-            var_dump($data);
             return $data;
 
         } catch (Exception $e) {
@@ -51,8 +49,7 @@ class daoUtilisateur {
 
         // On récupère si possible
         try {
-            $user = new dtoUtilisateur();
-            $full = $req->fetchAll(PDO::FETCH_CLASS, get_class($user));
+            $full = $req->fetchAll(PDO::FETCH_CLASS, 'dtoUtilisateur');
             return $full;
 
         } catch(Exception $e) {
@@ -132,14 +129,13 @@ class daoUtilisateur {
         } else {
 
             // Sinon, on récupère les infos et le mdp
-            $user = $this->getOneOrNull(intval($data['mdp']));
-            var_dump($user);
+            $user = $this->getOneOrNull(intval($data['idUser']));
 
 
             if(password_verify($mdp, $user->getMdp())) {
                 // Créer nos sessions et return
                 $_SESSION['IP'] = $_SERVER['REMOTE_ADDR'];
-                $_SESSION['AGENT'] = $_SERVER['USER_AGENT'];
+                $_SESSION['AGENT'] = $_SERVER['HTTP_USER_AGENT'];
                 $_SESSION['TOKEN'] = $user->getToken();
 
                 return $user;
