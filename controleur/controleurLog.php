@@ -9,19 +9,24 @@ if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
 
     if($user != null ){
         switch($user->getFonction()) {
-            case 1: 
+            case 1:
+                $_SESSION['identification']['fonction'] = 'salarie';
                 require_once("vue/vueIntervenantSalarie.php");
                 break;
             case 2:
+                $_SESSION['identification']['fonction'] = 'admin';
                 require_once("../vue/vuePanel.php");
                 break;
             case 3:
+                $_SESSION['identification']['fonction'] = 'responsable';
                 require_once("../vue/vueResponsableFormation.php");
                 break;
             case 4:
+                $_SESSION['identification']['fonction'] = 'benevole';
                 require_once("../vue/vueIntervenantBenevole.php");
                 break;
             case 5:
+                $_SESSION['identification']['fonction'] = 'gerantrh';
                 require_once("../vue/vueGerantRH.php");
                 break;
             default:

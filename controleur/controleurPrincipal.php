@@ -2,6 +2,9 @@
 if(isset($_GET['m2lMP'])){
 	$_SESSION['m2lMP']= $_GET['m2lMP'];
 }
+elseif (isset($_SESSION['identification'])){
+    require_once(dispatcher::dispatch($_SESSION['identification']['fonction']));
+}
 else
 {
 	if(!isset($_SESSION['m2lMP'])){
