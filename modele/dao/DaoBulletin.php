@@ -1,6 +1,12 @@
 <?php
 
+
+
 class DaoBulletin{
-    public function __construct();
-    
+
+
+    public function truc() {
+        bof("ça va gros ?");
+    }
+
 }

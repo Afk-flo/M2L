@@ -1,3 +1,3 @@
 <?php 
 
-echo "vue Intervenant bénévole";
+echo "vue intervenant bénévole";
