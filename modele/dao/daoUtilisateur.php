@@ -42,7 +42,6 @@ class DaoUtilisateur {
 
             $data->setLigue($ligue['nomLigue']);
             
-            var_dump($data);
             return $data;
 
         } catch (Exception $e) {
