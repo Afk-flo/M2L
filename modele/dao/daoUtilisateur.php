@@ -37,9 +37,13 @@ class DaoUtilisateur {
             $reqLigue = $this->db->prepare('SELECT nomLigue FROM ligue as l INNER JOIN utilisateur AS u ON l.idLigue = u.idLigue WHERE idUser = ?');
             $reqLigue->execute(array($id));
             $ligue = $reqLigue->fetch();
-
             $data->setLigue($ligue['nomLigue']);
-            
+
+            $reqFonction = $this->db->prepare('SELECT libelle FROM fonction as F INNER JOIN utilisateur AS u ON F.idFonct = u.idFonct WHERE idUser = ?');
+            $reqFonction->execute(array($id));
+            $fonction = $reqFonction->fetch();
+            $data->setFonction($fonction['libelle']);
+
             return $data;
 
         } catch (Exception $e) {
@@ -134,7 +138,7 @@ class DaoUtilisateur {
 
             // Sinon, on récupère les infos et le mdp
             $user = $this->getOneOrNull(intval($data['idUser']));
-
+            var_dump($user->getFonction());
 
             if(password_verify($mdp, $user->getMdp())) {
                 // Créer nos sessions et return
