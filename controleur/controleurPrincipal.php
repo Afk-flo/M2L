@@ -1,19 +1,17 @@
 <?php
-if(isset($_GET['m2lMP'])){
-	$_SESSION['m2lMP']= $_GET['m2lMP'];
-}
 
-elseif (isset($_POST['fConnexion'])) {
-	// fConnexion
+if (isset($_POST['submitConnex'])) {
+	// Demande connexion 
 	if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
 		$login = Securite::nettoyage($_POST["login"]);
 		$mdp =  Securite::nettoyage($_POST["mdp"]);
-	
+
 		$userDAO = new DaoUtilisateur();
 		$user = $userDAO->login($login,$mdp);
 
 		if($user != null ) {
 			$_SESSION['controleurN1'] = $_SESSION['user']['fonction'];
+			var_dump($user);
 		} else {
 			$_SESSION['controleurN1']="visiteurs";
 			$_SESSION['error'] = "Erreur de connexion";
@@ -21,6 +19,13 @@ elseif (isset($_POST['fConnexion'])) {
 	}
 	
 } 
+
+
+elseif(isset($_GET['m2lMP'])){
+	$_SESSION['m2lMP']= $_GET['m2lMP'];
+}
+
+
 
 
 else

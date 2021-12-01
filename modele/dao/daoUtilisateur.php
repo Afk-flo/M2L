@@ -29,8 +29,6 @@ class DaoUtilisateur {
             $req->setFetchMode(PDO::FETCH_CLASS, 'DtoUtilisateur');
             $data = $req->fetch();
 
-            
-            
             $reqClub = $this->db->prepare('SELECT nomClub FROM IdClub as c INNER JOIN utilisateur AS u ON c.idClub = u.idClub WHERE idUser = ?');
             $reqClub->execute(array($id));
             $club = $reqClub->fetch();
