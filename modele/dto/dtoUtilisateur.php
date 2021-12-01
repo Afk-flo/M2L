@@ -68,7 +68,7 @@ class DtoUtilisateur{
 
     public function getFonction(): string
     {
-        return $this->idFonct;
+        return $this->fonction;
     }
 
     public function setFonction($role){

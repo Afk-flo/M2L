@@ -138,7 +138,7 @@ class DaoUtilisateur {
 
             // Sinon, on récupère les infos et le mdp
             $user = $this->getOneOrNull(intval($data['idUser']));
-            var_dump($user->getFonction());
+
 
             if(password_verify($mdp, $user->getMdp())) {
                 // Créer nos sessions et return
