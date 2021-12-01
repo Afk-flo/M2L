@@ -132,8 +132,7 @@ class DaoUtilisateur {
         $data = $req->fetch();
 
         if(!isset($data['idUser']) && $data['idUser'] == null ) {
-            Header('Location: ../?error=log');
-
+            return null;
         } else {
 
             // Sinon, on récupère les infos et le mdp
@@ -144,11 +143,14 @@ class DaoUtilisateur {
                 // Créer nos sessions et return
                 $_SESSION['IP'] = $_SERVER['REMOTE_ADDR'];
                 $_SESSION['AGENT'] = $_SERVER['HTTP_USER_AGENT'];
-                $_SESSION['TOKEN'] = $user->getToken();
+
+                if(!isset($_SESSION['user'])) {
+                    $_SESSION['user'] = ['token' => $user->getToken(), 'nom' => $user->getNom(), 'prenom' => $user->getPrenom(), 'statut' => $user->getStatut(), 'fonction' => $user->getFonction()];
+                }
 
                 return $user;
             } else {
-                Header('Location: ../?error=log2');
+                return null;
             }
 
          }

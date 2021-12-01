@@ -17,7 +17,7 @@
 		</style>
 	
 	</head>
-	<body >
+	<body>
 		<?php
 			require_once 'controleur/controleurPrincipal.php';	
 		?>
