@@ -13,7 +13,7 @@ par contre le menu va changer entre les deux
             <p>Bonjour !</p><br>
             <h3>Voici vos informations personnelles</h3>
             <br><br>
-            <p>Nom : <?php $user.getNom() ?></p>
+            <p>Nom : <?php $user->getNom(); ?></p>
             <p>Prénom</p>
             <p>Ligue</p>
             <p>Club</p>

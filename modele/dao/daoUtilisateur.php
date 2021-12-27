@@ -28,7 +28,8 @@ class DaoUtilisateur {
            
             $req->setFetchMode(PDO::FETCH_CLASS, 'DtoUtilisateur');
             $data = $req->fetch();
-
+          //  $_SESSION['util'] = $data;
+         
             $reqClub = $this->db->prepare('SELECT nomClub FROM IdClub as c INNER JOIN utilisateur AS u ON c.idClub = u.idClub WHERE idUser = ?');
             $reqClub->execute(array($id));
             $club = $reqClub->fetch();
@@ -43,6 +44,7 @@ class DaoUtilisateur {
             $reqFonction->execute(array($id));
             $fonction = $reqFonction->fetch();
             $data->setFonction($fonction['libelle']);
+            $_SESSION['util'] = $data;
 
             return $data;
 
@@ -52,6 +54,25 @@ class DaoUtilisateur {
 
        
     }
+
+
+       /**
+     * Permet de récupérer des infos sur un utilisateur à partir du token (infos simples)
+     * 
+     * @param string $token
+     * @return DtoUtilisateur|null - s'il trouve 
+     */
+    public function getOneByToken(string $token) : ?DtoUtilisateur {
+        $req = $this->db->prepare('SELECT nom, statut FROM utilisateur WHERE token = ?');
+        $req->execute(array($token));
+        $data = $req->fetch();
+
+        $user = new DtoUtilisateur();
+        $user->setNom($data['nom']);
+        $user->setStatut($data['statut']);
+        return $user;
+    }
+
 
     /**
      * Permet de récupérer la liste des utilisateurs ou null si elle ne contient rien
@@ -146,7 +167,7 @@ class DaoUtilisateur {
                 $_SESSION['AGENT'] = $_SERVER['HTTP_USER_AGENT'];
 
                 if(!isset($_SESSION['user'])) {
-                    $_SESSION['user'] = ['token' => $user->getToken(), 'nom' => $user->getNom(), 'prenom' => $user->getPrenom(), 'statut' => $user->getStatut(), 'fonction' => $user->getFonction()];
+                    $_SESSION['user'] = ['id' => $user->getIdUSer(),'agent' => $_SERVER['HTTP_USER_AGENT'], 'ip' => $_SERVER["REMOTE_ADDR"], 'token' => $user->getToken(), 'nom' => $user->getNom(), 'prenom' => $user->getPrenom(), 'statut' => $user->getStatut(), 'fonction' => $user->getFonction()];
                 }
 
                 return $user;

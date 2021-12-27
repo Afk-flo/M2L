@@ -1,6 +1,6 @@
 <?php 
 
 $user = new DaoUtilisateur();
-$user = $user->getOneOrNull($_SESSION['identification']['id'],$_SESSION['identification']['token']);
-
+$user = $user->getOneByToken($_SESSION['user']['token']);
+echo "d";
 require_once("vue/vueIntervenantSalarie.php");

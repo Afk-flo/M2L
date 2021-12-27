@@ -61,9 +61,9 @@ class DtoUtilisateur{
         $this->statut=$statut;
     }
 
-    public function getIdUSer(): string
+    public function getIdUser(): string
     {
-        return $this->idUSer;
+        return $this->idUser;
     }
 
     public function getFonction(): string

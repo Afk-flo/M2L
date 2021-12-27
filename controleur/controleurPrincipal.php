@@ -1,6 +1,12 @@
 <?php
 
-if (isset($_POST['submitConnex'])) {
+
+if(isset($_GET['m2lMP']) && empty($_SESSION['user'])){
+	$_SESSION['m2lMP']= $_GET['m2lMP'];
+}
+
+
+else if (isset($_POST['submitConnex'])) {
 	// Demande connexion 
 	if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
 		$login = Securite::nettoyage($_POST["login"]);
@@ -10,10 +16,9 @@ if (isset($_POST['submitConnex'])) {
 		$user = $userDAO->login($login,$mdp);
 
 		if($user != null ) {
-			$_SESSION['controleurN1'] = $_SESSION['user']['fonction'];
-			var_dump($user);
+			$_SESSION['m2lMP'] = ucfirst($_SESSION['user']['fonction']);
 		} else {
-			$_SESSION['controleurN1']="visiteurs";
+			$_SESSION['m2lMP']="accueil";
 			$_SESSION['error'] = "Erreur de connexion";
 		}
 	}
@@ -21,18 +26,8 @@ if (isset($_POST['submitConnex'])) {
 } 
 
 
-elseif(isset($_GET['m2lMP'])){
-	$_SESSION['m2lMP']= $_GET['m2lMP'];
-}
-
-
-
-
-else
-{
-	if(!isset($_SESSION['m2lMP'])){
-		$_SESSION['m2lMP']="accueil";
-	}
+else if(empty($_SESSION['user'])) {
+	$_SESSION['m2lMP']="accueil";
 }
 
 

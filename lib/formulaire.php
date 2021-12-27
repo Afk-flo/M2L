@@ -16,6 +16,7 @@ class Formulaire{
 		$this->style = $unStyle;
 	}
 	
+	
 	public function concactComposants($unComposant , $autreComposant ){
 		$unComposant .=  $autreComposant;
 		return $unComposant ;
@@ -24,10 +25,16 @@ class Formulaire{
 	public function ajouterComposantLigne($unComposant){
 		$this->ligneComposants[] = $unComposant;
 	}
+
 	
 	public function ajouterComposantTab(){
 		$this->tabComposants[] = $this->ligneComposants;
 		$this->ligneComposants = array();
+	}
+	
+	public function creerTitre($unLabel){
+	    $composant = "<h1 id='formTitle'>" . $unLabel . "</h1>";
+	    return $composant;
 	}
 	
 	public function creerLabel($unLabel){
@@ -40,7 +47,22 @@ class Formulaire{
 		return $composant;
 	}
 	
-	
+	public function creerRadio($unRadio, $nom, $id, $uneValue){
+		$composant = "<input  type ='radio' value='". $uneValue . "' id = '" . $id . "' name = '" .$unRadio. "'/>$nom";
+		return $composant;
+	}
+
+	public function creerInputDate($unNom, $unId, $required = NULL, $value = NULL) {
+		$composant = "<input type='date' id='".$unId."' name='".$unNom."'value='".$value."'  ".$required." >";
+		return $composant;
+	}
+
+	public function creerInputHidden($unNom, $unId, $uneValue) {
+		$composant = "<input type = 'hidden' name = '" . $unNom . "' id = '" . $unId . "'  value = '" . $uneValue . '"';
+		return $composant;
+	}
+
+
 	public function creerInputTexte($unNom, $unId, $uneValue , $required , $placeholder , $pattern){
 		$composant = "<input type = 'text' name = '" . $unNom . "' id = '" . $unId . "' ";
 		if (!empty($uneValue)){
@@ -49,23 +71,23 @@ class Formulaire{
 		if (!empty($placeholder)){
 			$composant .= "placeholder = '" . $placeholder . "' ";
 		}
-		if ( $required = 1){
+		if ( $required == 1){
 			$composant .= "required ";
 		}
 		if (!empty($pattern)){
-			$composant .= "pattern = '" . $pattern . "' ";
+			$composant .= $pattern ;
 		}
 		$composant .= "/>";
 		return $composant;
 	}
 	
 	
-	public function creerInputMdp($unNom, $unId,  $required , $placeholder , $pattern){
+	public function creerInputMdp($unNom, $unId,  $required = NULL, $placeholder , $pattern){
 		$composant = "<input type = 'password' name = '" . $unNom . "' id = '" . $unId . "' ";
 		if (!empty($placeholder)){
 			$composant .= "placeholder = '" . $placeholder . "' ";
 		}
-		if ( $required = 1){
+		if ( $required === 1){
 			$composant .= "required ";
 		}
 		if (!empty($pattern)){
@@ -93,6 +115,10 @@ class Formulaire{
 		$composant = "<input type = 'submit' name = '" . $unNom . "' id = '" . $unId . "' ";
 		$composant .= "value = '" . $uneValue . "'/> ";
 		return $composant;
+	}
+
+	public function creerInputBoutonRetour($uneValue){
+		return "<a href='vues/visiteurs/vueConnexion.php' target='_blank'> <input type='button' value='Retour'> </a>";
 	}
 
 	public function creerInputImage($unNom, $unId, $uneSource){
