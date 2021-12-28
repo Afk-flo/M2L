@@ -7,12 +7,6 @@
 			<div class='connexion'>
 				<div class='titre'>Veuillez vous identifier</div>
 				<?php	
-					if(isset($_SESSION['user'])) {
-						var_dump($_SESSION['user']);
-
-					} else {
-						echo "pas de post";
-					}
 					$formulaireConnexion->afficherFormulaire();
 				?>
 			</div>

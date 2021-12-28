@@ -15,7 +15,7 @@ class verification {
      * @return bool true si ça passe / false qui ne passe pas
      */
     public function access(dtoUtilisateur $user, array $demande) : bool {
-        return in_array($user->getRole(), $demande);
+        return in_array($user->getFonction(), $demande);
     }
 
     /**
@@ -25,7 +25,7 @@ class verification {
      * @return bool true si la personne est admi / false sinon 
      */
     public function isAdmin(dtoUtilisateur $user) : bool {
-        return $user->getRole() == "ADMIN" ? true : false;
+        return $user->getFonction() == "ADMIN" ? true : false;
     }
 
     /**

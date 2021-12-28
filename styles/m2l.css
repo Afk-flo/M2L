@@ -38,7 +38,6 @@ main {
 	padding: 0px;
 	min-height: 600px;
 	background-color: #f0f0f0;
- 	font-size: 0px;
  	margin-top: 200px;
 }
 
@@ -71,7 +70,7 @@ main {
 /*styles pour le footer                             */
 /****************************************************/
 footer {
-	background-color: skyblue;
+	background-color: sky#26B5EF;
 	height: 120px;
 	color: white;
 	font-weight: bold;
@@ -108,7 +107,7 @@ footer p{
 /****************************************************/
 nav.menuPrincipal{
 	text-align: right;
-	background-color: skyblue;
+	background-color: sky#26B5EF;
 	font-size: 0px;
 }
 
@@ -159,7 +158,7 @@ nav.menuPrincipal ul li.actif {
 .texteAccueil h1{
 	padding-top: 20px;
 	padding-bottom: 20px;
-	text-algn: center;
+	text-align: center;
 	text-align: center;
 }
 
@@ -215,7 +214,7 @@ a.anchor {
 }
 
 .sidenav li a:hover {
-  color: blue;
+  color: #26B5EF;
 }
 
 /****************************************************/
@@ -229,7 +228,7 @@ a.anchor {
 }
 
 .article .titre{
-	color: blue;
+	color: #26B5EF;
 	padding: 20px;
 }
 
@@ -262,12 +261,12 @@ a.anchor {
 .article .corps .tab{
 	width: 100%;
 	font-size: 0.8em;
-	border: 1px solid blue;
+	border: 1px solid #26B5EF;
 	text-align: center;
 }
 
 .article .corps .tab thead{
-	background-color: skyblue;
+	background-color: sky#26B5EF;
 }
 
 .article .corps .tab .pair{
@@ -293,7 +292,7 @@ a.anchor {
 	text-align: center;
 	font-size: 18px;
 	font-weight: bold;
-	background-color: skyblue;
+	background-color: sky#26B5EF;
 	padding: 16px;
 }
 
@@ -331,4 +330,301 @@ a.anchor {
 	text-align: center;
 	font-weight: bold;
 	color: red;
+}
+
+
+
+/* c moche  mdr */
+#tableResp {
+	font-family: 'Montserrat', Arial, sans-serif;
+	font-size: 18px;
+    border-collapse: collapse;
+    width: 80%;
+	margin: auto;
+}
+
+#tableResp td, #tableResp th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#tableResp tr:nth-child(even){
+	background-color: #f2f2f2;
+}
+
+#tableResp tr:hover {
+	background-color: #ddd;
+}
+
+#tableResp th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #26B5EF;
+	color: white;
+}
+
+.fas {
+	color:black;
+}
+
+.fas:hover {
+	color:#26B5EF;
+}
+
+.title1 {
+	color:#26B5EF;
+	font-size: 2.5em;
+	margin-left:10px;
+	font-family: 'Montserrat', Arial, sans-serif;
+}
+
+.title3 {
+	margin-left:10px;
+	margin-top: -50px;
+	font-size: 1.5em;
+	letter-spacing: 2px;
+	color: #474544;
+	font-family: 'Montserrat', Arial, sans-serif;
+}
+
+form {
+	font-family: 'Montserrat', Arial, sans-serif;
+    padding: 30px;
+  	margin: 50px 0;
+}
+
+button, input, select, textarea {
+	color: #5A5A5A;
+	font: inherit;
+	margin: 0;
+}
+
+input {
+	line-height: normal;
+}
+
+#formTitle {
+	font-family: 'Montserrat', Arial, sans-serif;
+	color: #474544;
+	font-size: 32px;
+	font-weight: 700;
+	letter-spacing: 7px;
+	text-align: center;
+	padding-bottom: 40px;
+	text-transform: uppercase;
+}
+
+label {
+	margin: 40px;
+	text-transform:uppercase;
+	font-weight: bold;
+
+	
+}
+
+input[type='text'], [type='password'], [type='date']  {
+	background: none;
+  border: none;
+	border-bottom: solid 2px #474544;
+	color: #474544;
+	font-size: 1.000em;
+ 	 font-weight: 400;
+  letter-spacing: 1px;
+	margin: 0em 0 1.875em 0;
+	padding: 0 0 0.875em 0;
+  	text-transform: uppercase;
+	width: 100%;
+	box-sizing: border-box;
+	transition: all 0.3s;
+}
+
+input[type='text']:focus, [type='password']:focus, [type='date']:focus{
+	outline: none;
+	padding: 0 0 0.875em 0;
+}
+
+
+input[type='submit'] {
+	background: none;
+	border: solid 2px #474544;
+	color: #474544;
+	display: inline-block;
+	font-family: 'Helvetica', Arial, sans-serif;
+	font-size: 0.875em;
+	font-weight: bold;
+	outline: none;
+	padding: 20px 35px;
+	text-transform: uppercase;
+	-webkit-transition: all 0.3s;
+	transition: all 0.3s;
+  }
+  
+input[type='submit']:hover {
+	border: solid 2px #26B5EF;
+	background:#26B5EF;
+	color: #F2F3EB;
+  }
+
+
+.container {
+	padding-top:40px;
+	max-width: 1200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+ 	margin: 60px auto;
+}		
+
+.jump {
+	margin-top:100px;
+}
+
+nav {
+	background-color: #26B5EF;
+}
+
+footer {
+	background-color: #26B5EF;
+}
+
+
+/* alert */
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.succes {
+	padding: 20px;
+	background-color: green;
+	color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+
+/* Mise en place demande user */
+
+.truc {
+	max-width: 600px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+ 	margin: 30px auto;
+}
+
+#demandeur {
+	border: 3px solid black;
+	margin: 10px;
+	box-shadow: 8px 7px 0px 3px #000000;
+}
+
+.demandeurWait {
+	border: 3px solid black;
+	margin: 10px;
+	box-shadow: 8px 7px 0px 3px #F1C54F;
+}
+
+.demandeurACCEPTE {
+	border: 3px solid black;
+	margin: 10px;
+	box-shadow: 8px 7px 0px 3px green;
+}
+
+.demandeurREFUSE{
+	border: 3px solid black;
+	margin: 10px;
+	box-shadow: 8px 7px 0px 3px red;
+}
+
+.user {
+	font-size: large;
+	margin:5px;
+}
+
+.choixWAIT {
+	margin:10px;
+	color:#F1C54F;
+	font-weight: bold;
+}
+
+.choixACCEPTE {
+	margin:10px;
+	color:green;
+	font-weight: bold;
+}
+
+.choixREFUSE {
+	margin:10px;
+	color:red;
+	font-weight: bold;
+}
+
+button {
+	pointer-events: auto;
+	cursor: pointer;
+	background: #e7e7e7;
+	border: none;
+	padding: 1rem 1.5rem;
+	margin: 10px;
+	font-family: inherit;
+	font-size: inherit;
+	position: relative;
+	display: inline-block;
+	border: 1px solid black;
+}
+
+#oui:hover {
+	border: 1px solid green;
+	border-radius: 5px;
+	background-color: green;
+	transition-property: color, border, background-color;
+    transition-duration: 0.5s;
+	color: #ffffff;
+	transition-timing-function: ease-in-out;
+
+}
+
+#non:hover {
+	border: 1px solid red;
+	border-radius: 5px;
+	color:#fff;
+	transition-property: color, border, background-color;
+    transition-duration: 0.5s;
+	background-color: red;
+	transition-timing-function: ease-in-out;
+
+}
+
+.attentionDiv {
+	margin: auto;
+	height: 50px;
+	width: 50%;
+	border:2px solid #EFB92A;
+	border-radius: 5px;
+	background-color: #F1C54F;
+}
+
+.attention {
+	margin-top:15px;
+	color: white;
+	font-size:1em;
+	font-weight: bold;
 }

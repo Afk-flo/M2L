@@ -18,6 +18,22 @@
     }
 
     /**
+     * Permet de récupérer toutes les formations de la base de données
+     * 
+     * @return DtoFormation[] _> array de dtoFormation 
+     */
+    public function getAllorNull() : ?array {
+        $req = $this->db->prepare('SELECT * FROM idForma');
+        $req->execute();
+        try {
+            $all = $req->fetchAll(PDO::FETCH_CLASS, 'DtoFormation');
+            return $all;
+        } catch(Exception $e) {
+            return null;
+        }
+    }
+
+    /**
      * Permet d'obtenir une formation depuis la base de données 
      * 
      * @param int $id - L'id de la formation
@@ -28,7 +44,7 @@
         $req->execute(array($id));
 
         try {
-            $req->setFetchMode(PDO::FETCH_CLASS, 'DtoUtilisateur');
+            $req->setFetchMode(PDO::FETCH_CLASS, 'DtoFormation');
             $one = $req->fetch();
             return $one;
         } catch(Exception $e) {
@@ -37,15 +53,30 @@
     }
 
     /**
+     * Met à jour dans la base de données la formation choisie
+     * 
+     * @param DtoFormation $formation
+     * @return void 
+     */
+    public function update(DtoFormation $formation) : void {
+        try {
+            $req = $this->db->prepare('UPDATE idForma SET intitule = ?, descriptif = ?, dateOuvertureInscriptions = ?, 	dateClotureInscriptions = ?, nombreMax = ?, DateDebut = ? WHERE idForma = ?');
+            $req->execute(array($formation->getIntitule(), $formation->getDescriptif(), $formation->getDateOuvertureInscription(), $formation->getDateFinInscription(), $formation->getNombreMax(), $formation->getDateDebut(), $formation->getIdFormation()));
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    /**
      * Permet de créer une formation dans la base de données 
      * 
-     * @param DtoFormation $formation - Un objet formation pour l'envoie en BDD
+     * @param dtoFormation $formation - Un objet formation pour l'envoie en BDD
      * @return bool true|false - selon la bonne exécution 
      */
-    public function create(DtoFormation $formation) : bool {
+    public function create(dtoFormation $formation) : bool {
         try {
-            $req = $this->db->prepare('INSERT INTO idForma (intitule, descriptif, duree, dateOuvertureInscriptions, dateClotureInscriptions, nombreMax, nombreFinal, idResponsable) VALUES (?,?,?,?,?,?,?,?)');
-            $req->execute(array($formation->getNomFormation(), $formation->getDescriptif(), $formation->getDuree(), $formation->getDateDepart(), $formation->getDateFin(), $formation->getEffectifMax(), $formation->getEffectifTotal(), $formation->getResponsable()));
+            $req = $this->db->prepare('INSERT INTO idForma (intitule, descriptif, dateOuvertureInscriptions, dateClotureInscriptions, nombreMax, nombreFinal, idResponsable) VALUES (?,?,?,?,?,?,?)');
+            $req->execute(array($formation->getIntitule(), $formation->getDescriptif(), $formation->getDateOuvertureInscription(), $formation->getDateFinInscription(), $formation->getNombreMax(), '-1' , $formation->getResponsable()));
             return true;
         } catch (Exception $e) {
             return false;
@@ -61,7 +92,7 @@
      */
     public function delete(int $id) : bool {
         try {
-            $req = $this->db->prepare('DELETE FROM idForma WHERE id = ?');
+            $req = $this->db->prepare('DELETE FROM idForma WHERE idForma = ?');
             $req->execute(array($id));
             return true;
         } catch (Exception $e) {
@@ -79,18 +110,43 @@
         try {
             $req = $this->db->prepare('SELECT idUser FROM PARTICPE WHERE idForma = ?');
             $req->execute(array($id));
-            $req->fetchAll(); 
+            $util = $req->fetchAll(); 
+           
             $users = array();
 
-            foreach($req as $req) {
+            foreach($util as $util) {
                 $user = new DaoUtilisateur();
-                array_push($users, $user->getOneOrNull($req));
+                $user = $user->getOneOrNull($util["idUser"]);
+                array_push($users, $user);
             }
-
             return $users;
         } catch (Exception $e) {
             return false;
         }  
+    }
+
+    /**
+     * Permet de récupérer les utilisateurs ayant demandés la formation et ayant été accepté
+     * 
+     * @param int $id - id de la formation
+     * @return array|null - Array d'utilisateur ou null selon le nombre 
+     */
+    public function getUtilisateurAccepte(int $id) : ?array {
+        try {
+            $req = $this->db->prepare('SELECT * FROM utilisateur INNER JOIN PARTICPE AS P ON P.idUser = utilisateur.idUser WHERE idForma = ? AND etat = "ACCEPTE"');
+            $req->execute(array($id));
+            $full = $req->FetchAll();
+            $user = new DaoUtilisateur();
+            $fin = array();
+
+            foreach($full as $full) {
+                $temp = $user->getOneOrNull($full['idUser']);
+                array_push($fin, $temp);
+            }
+            return $fin;
+        } catch(Exception $e) {
+            return null;
+        }
     }
 
 
