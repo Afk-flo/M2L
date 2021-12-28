@@ -189,7 +189,7 @@
 		<?php 
 		if(!empty($formaFermePre)) {
 			?>
-		<div>
+		<div class="attentionDiv">
 			<p class="attention"> <i class="fas fa-exclamation-triangle"></i> <bold>Attention ! </bold> Ces formations doivent être complétées. </p>
 		</div>
 
@@ -253,7 +253,7 @@
 		<?php 
 		foreach($formaFermeFini as $formations) {
 			echo '<tr>';
-			echo '<td>' . $formations->getIntitule() . '</td>';
+			echo '<td><a href="index.php?Formation=VoirFormation&idForma='.$formations->getIdFormation().'">' . $formations->getIntitule() . '</a></td>';
 			echo '<td>' . $formations->getDescriptif() . '</td>';
 			echo '<td>' . $formations->getDateOuvertureInscription() . '</td>';
 			echo '<td>' . $formations->getDateFinInscription() . '</td>';

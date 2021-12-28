@@ -15,6 +15,14 @@ if($_SESSION['user']['fonction'] == "formation") {
         if($target == "lesFormations") {
             require_once(dispatcher::dispatch('LesFormations'));
             die();
+        } elseif($target === "deconnexion") {
+            $_SESSION['user'] = [];
+            session_destroy();
+            include_once dispatcher::dispatch('Accueil');
+            die();
+        } elseif($target === "VoirFormation") {
+            require_once(dispatcher::dispatch('VoirFormation'));
+            die();
         }
     }
     

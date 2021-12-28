@@ -601,3 +601,19 @@ button {
 	transition-timing-function: ease-in-out;
 
 }
+
+.attentionDiv {
+	margin: auto;
+	height: 50px;
+	width: 50%;
+	border:2px solid #EFB92A;
+	border-radius: 5px;
+	background-color: #F1C54F;
+}
+
+.attention {
+	margin-top:15px;
+	color: white;
+	font-size:1em;
+	font-weight: bold;
+}

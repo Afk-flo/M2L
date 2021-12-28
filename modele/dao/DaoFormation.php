@@ -125,6 +125,30 @@
         }  
     }
 
+    /**
+     * Permet de récupérer les utilisateurs ayant demandés la formation et ayant été accepté
+     * 
+     * @param int $id - id de la formation
+     * @return array|null - Array d'utilisateur ou null selon le nombre 
+     */
+    public function getUtilisateurAccepte(int $id) : ?array {
+        try {
+            $req = $this->db->prepare('SELECT * FROM utilisateur INNER JOIN PARTICPE AS P ON P.idUser = utilisateur.idUser WHERE idForma = ? AND etat = "ACCEPTE"');
+            $req->execute(array($id));
+            $full = $req->FetchAll();
+            $user = new DaoUtilisateur();
+            $fin = array();
+
+            foreach($full as $full) {
+                $temp = $user->getOneOrNull($full['idUser']);
+                array_push($fin, $temp);
+            }
+            return $fin;
+        } catch(Exception $e) {
+            return null;
+        }
+    }
+
 
 
  }
