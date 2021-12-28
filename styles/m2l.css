@@ -15,7 +15,6 @@ html, body {
 	margin: 0px;
 	padding: 0px;
 	width: 100%;
-	font-size: 0px;
 }
 
 /****************************************************/
@@ -416,7 +415,6 @@ input {
 }
 
 label {
-	margin: 40px;
 	text-transform:uppercase;
 	font-weight: bold;
 

@@ -17,34 +17,67 @@ class Securite {
         return $data;
     }
 
-    /**
-     * Fonction permettant de savoir si un utilisateur est authentifié ET si c'est le bon utilsiateur 
+     /**
+     * Permet de voir si l'utilisateur est connecté et si il est bien celui qu'il prétend être 
+     * On vérifie donc : Le token / L'IP de l'user / L'agent de l'user
      * 
-     * @return bool true|fasle - selon 
+     * @param dtoUtilisateur $user 
+     * @return bool 
      */
-    public static function isLogged() {
-        // vérification login
-        if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
-            // Vérification d'identitié 
-            // 1 - IP
-            $ip = $_SESSION['user']['ip'];
-            if(filter_var($ip, FILTER_VALIDATE_IP)) {
-                // Si l'ip ne correspond pas à celle enregistré 
-                if($ip != $_SERVER["REMOTE_ADDR"]) {
-                    return false;
-                }
+    public function isLoged(dtoUtilisateur $user) : bool {
+        return !empty($_SESSION['user']['token']) && $_SESSION['user']['token'] == $user->getToken() && $_SESSION['user']['ip'] == $_SERVER['REMOTE_ADDR'] && $_SESSION['user']['agent'] == $_SERVER['USER_AGENT'] ? true : false;
+    }
+
+
+    /**
+     * Fonction principale anti brute force - limite le nombre de connexion 
+     * 
+     * @return void
+     */
+    public static function antiBruteForce() : void {
+        if(isset($_SESSION['antb']) && !empty($_SESSION['antb'])) {
+            $ant = intval($_SESSION['antb']);
+
+            // On vérifie la valeur des tentatives et on agit en conséquence (la partie neg c'est une sécurité supplémentaire)
+            if($ant < 0 || $ant >= 3) { 
+                self::ban($_SERVER['REMOTE_ADDR'], "Tentative de brute force");
+            } else {
+                $_SESSION['antb'] = $ant + 1;
             }
-
-            // 2 - USER AGENT 
-            $agent = $_SESSION['user']['agent'];
-            
-
-        }
-        else {
-            return false;
+        } else {
+            // Si l'utilisateur à touché au var de session
+            self::ban($_SERVER['REMOTE_ADDR'], "Tentative de brute force");
         }
     }
 
+    /**
+     * Fonction bannant une personne 
+     * 
+     */
+    public static function ban($ip, $raison) : void {
+        try {
+            $raison = SELF::nettoyage($raison);
+            DaoBan::add($ip, $raison);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    /**
+     * Permet de voir si un utilisateur est bannis
+     * 
+     * @param $ip - ip personne
+     * @return bool - true si bannis
+     */
+    public static function isBaned($ip): bool {
+       $ip = DaoBan::getOne($ip);
+
+       if(is_bool($ip)) {
+            return false;
+       } else { 
+           return true;
+       }
+    }
 
 
 

@@ -8,6 +8,9 @@ if(isset($_GET['m2lMP']) && empty($_SESSION['user'])){
 
 else if (isset($_POST['submitConnex'])) {
 	// Demande connexion 
+	if(Securite::isBaned($_SERVER['REMOTE_ADDR'])) {
+		die("Vous avez été bannis et c'est franchement dommage :(");
+	}
 	if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
 		$login = Securite::nettoyage($_POST["login"]);
 		$mdp =  Securite::nettoyage($_POST["mdp"]);
@@ -18,12 +21,10 @@ else if (isset($_POST['submitConnex'])) {
 		if($user != null ) {
 			$_SESSION['m2lMP'] = ucfirst($_SESSION['user']['fonction']);
 		} else {
-			//$_SESSION['m2lMP']="accueil";
-			var_dump($user);
-			$_SESSION['error'] = "Erreur de connexion";
-			var_dump($_SESSION['m2lMP']);
-
-			echo "lol";
+			Securite::antiBruteForce();
+			$_SESSION['m2lMP']="connexion";
+			$info = $_SESSION['antb'] - 1;
+			$_SESSION['message'] = ['type' => 'alert' , 'message' => "Attention ! Tentative n°" . $info  . " /3."];
 		}
 	}
 	

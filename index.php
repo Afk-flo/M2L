@@ -1,10 +1,14 @@
 <?php require_once 'lib/autoLoader.php';
  session_start();
+ if(!isset($_SESSION['antb'])) {
+	 $_SESSION['antb'] = 1;
+ }
 	
- // S'il y a une erreur, on met en place une petite alerte avec les informations 
- if(isset($_SESSION['error'])) {
-	echo $_SESSION['error'];
- }	
+// Voir si c'est bannis 
+if(Securite::isBaned($_SERVER['REMOTE_ADDR'])) {
+	echo "Vous avez été bannis et c'est franchement dommage :(";
+	die();
+}
 
 ?>
 <!DOCTYPE html>
