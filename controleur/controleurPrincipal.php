@@ -18,8 +18,12 @@ else if (isset($_POST['submitConnex'])) {
 		if($user != null ) {
 			$_SESSION['m2lMP'] = ucfirst($_SESSION['user']['fonction']);
 		} else {
-			$_SESSION['m2lMP']="accueil";
+			//$_SESSION['m2lMP']="accueil";
+			var_dump($user);
 			$_SESSION['error'] = "Erreur de connexion";
+			var_dump($_SESSION['m2lMP']);
+
+			echo "lol";
 		}
 	}
 	
@@ -41,7 +45,6 @@ $m2lMP->ajouterComposant($m2lMP->creerItemLien("connexion", "Se connecter"));
 
 
 $menuPrincipalM2L = $m2lMP->creerMenu($_SESSION['m2lMP'],'m2lMP');
-
 
 include_once dispatcher::dispatch($_SESSION['m2lMP']);
 

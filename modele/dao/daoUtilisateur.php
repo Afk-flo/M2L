@@ -63,13 +63,12 @@ class DaoUtilisateur {
      * @return DtoUtilisateur|null - s'il trouve 
      */
     public function getOneByToken(string $token) : ?DtoUtilisateur {
-        $req = $this->db->prepare('SELECT nom, statut FROM utilisateur WHERE token = ?');
+        $req = $this->db->prepare('SELECT nom FROM utilisateur WHERE token = ?');
         $req->execute(array($token));
         $data = $req->fetch();
 
         $user = new DtoUtilisateur();
         $user->setNom($data['nom']);
-        $user->setStatut($data['statut']);
         return $user;
     }
 
@@ -167,7 +166,7 @@ class DaoUtilisateur {
                 $_SESSION['AGENT'] = $_SERVER['HTTP_USER_AGENT'];
 
                 if(!isset($_SESSION['user'])) {
-                    $_SESSION['user'] = ['id' => $user->getIdUSer(),'agent' => $_SERVER['HTTP_USER_AGENT'], 'ip' => $_SERVER["REMOTE_ADDR"], 'token' => $user->getToken(), 'nom' => $user->getNom(), 'prenom' => $user->getPrenom(), 'statut' => $user->getStatut(), 'fonction' => $user->getFonction()];
+                    $_SESSION['user'] = ['id' => $user->getIdUSer(),'agent' => $_SERVER['HTTP_USER_AGENT'], 'ip' => $_SERVER["REMOTE_ADDR"], 'token' => $user->getToken(), 'nom' => $user->getNom(), 'prenom' => $user->getPrenom(), 'fonction' => $user->getFonction()];
                 }
 
                 return $user;

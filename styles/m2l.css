@@ -536,6 +536,12 @@ footer {
 	box-shadow: 8px 7px 0px 3px #000000;
 }
 
+.demandeurWait {
+	border: 3px solid black;
+	margin: 10px;
+	box-shadow: 8px 7px 0px 3px #F1C54F;
+}
+
 .demandeurACCEPTE {
 	border: 3px solid black;
 	margin: 10px;
@@ -553,6 +559,11 @@ footer {
 	margin:5px;
 }
 
+.choixWAIT {
+	margin:10px;
+	color:#F1C54F;
+	font-weight: bold;
+}
 
 .choixACCEPTE {
 	margin:10px;

@@ -6,7 +6,6 @@ class DtoUtilisateur{
     private string $prenom;
     private string $login;
     private string $mdp;
-    private string $statut;
     private string $fonction;
     private string $token;
     private string $club;
@@ -52,14 +51,6 @@ class DtoUtilisateur{
         return $this->mdp;
     }
 
-    public function getStatut(): string
-    {
-        return $this->statut;
-    }
-
-    public function setStatut($statut){
-        $this->statut=$statut;
-    }
 
     public function getIdUser(): string
     {

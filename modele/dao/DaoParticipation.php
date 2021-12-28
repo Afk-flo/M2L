@@ -45,7 +45,7 @@ class DaoParticipation {
      * 
      * 
      */
-    public function getCount($idForma) {
+    public function getCount(int $idForma) {
         try {
             $req = $this->db->prepare('SELECT count(idForma) FROM PARTICPE WHERE idForma = ? AND etat = "ACCEPTE"');
             $req->execute(array($idForma));
@@ -54,6 +54,15 @@ class DaoParticipation {
         } catch (Exception $e) {
             die($e->getMessage());
         }   
+    }
+
+    public function ajout(DtoParticipation $part) {
+        try {
+            $req = $this->db->prepare('INSERT INTO PARTICPE (idForma, idUser, etat, dateInscription) VALUES (?,?,?,?)');
+            $req->execute(array($part->getIdForma(), $part->getIdUser(), $part->getEtat(), $part->getDateInscription()));
+        } catch (Exception $e) {
+            return null;
+        }
     }
 
 }
