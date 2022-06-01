@@ -10,21 +10,65 @@ class DaoBulletin{
         $this->db = DaoDBConnex::getInstance();
     }
 
-    public function getOneBulletin($idBulletin) {
-        $req = $this->db->prepare('SELECT * FROM bulletin WHERE idBulletin = ?');
-        $req->execute(array($idBulletin));
-
+    public function getBulletinsContrat($idContrat){
         try{
-            $req->setFetchMode(PDO::FETCH_CLASS,'DtoBulletin');
-            $data = $req->fetch();
-
-            $reqContrat = $this->db->prepare('SELECT * FROM contrat AS C INNER JOIN bulletin AS B ON B.idContrat = C.idContrat WHERE idContrat = ?');
-            $reqContrat->execute(array($idBulletin));
-
+            $req = $this->db->prepare('SELECT * FROM bulletin WHERE idContrat = ?');
+            $req->execute(array($idContrat));
+            $all = $req->fetchAll(PDO::FETCH_CLASS,'dtoBulletin');
+            return $all;
         }
         catch(Exception $e){
-            return null;
+            die($e->getMessage());
         }
     }
+
+    public function getUnBulletin($idBulletin){
+        try{
+            $req = $this->db->prepare("SELECT * FROM bulletin WHERE idBulletin =?");
+            $req->execute(array($idBulletin));
+            $req->setFetchMode(PDO::FETCH_CLASS,"dtoBulletin");
+            $unBulletin = $req->fetch();
+            return $unBulletin;
+        }
+        catch (Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function majBulletin($unBulletin){
+        try{
+            $req = $this->db->prepare("UPDATE bulletin SET  mois = ?, annee = ?, bulletinPDF = ?, idContrat = ? WHERE idBulletin = ? ");
+            $req->execute(array($unBulletin->getMoisBull(),$unBulletin->getAnneeBull(), $unBulletin->getBulletinPDF(), $unBulletin->getBulletinpdf(), $unBulletin->getBulletinpdf(), $unBulletin->getIdContrat(), $unBulletin->getIdBulletin()));
+            return true;
+        }
+        catch(Exception $e){
+            return false;
+        }
+    }
+
+    public function suppBulletin($idBulletin){
+        try{
+            $req = $this->db->prepare("DELETE FROM bulletin WHERE idBulletin =?");
+            $req->execute(array($idBulletin));
+            return true;
+        }
+        catch (Exception $e){
+            return false;
+        }
+    }
+
+    public function creerBulletin($unBulletin){
+        try{
+            $req = $this->db->prepare('INSERT INTO bulletin (mois, annee, bulletinPDF, idContrat) VALUES (?,?,?,?)');
+            $req->execute(array($unBulletin->getMoisBull(),$unBulletin->getAnneeBull(), $unBulletin->getBulletinPDF(), $unBulletin->getIdContrat()));
+            return true;
+        }
+
+        catch(Exception $e){
+            return false;
+        }
+
+    }
+
 
 }

@@ -1,10 +1,12 @@
 <?php
 
 class dtoBulletin{
+    use hydrate;
     private $idBulletin;
     private $mois;
     private $annee;
     private $bulletinPDF;
+    private $idContrat;
     
     public function getIdBulletin(){
         return $this->idBulletin;
@@ -36,7 +38,13 @@ class dtoBulletin{
          $this->bulletinPDF = $bulletinPDF;
     }
 
+    public function getIdContrat()
+    {
+        return $this->idContrat;
+    }
 
-
-
+    public function setIdContrat($idContrat): void
+    {
+        $this->idContrat = $idContrat;
+    }
 }

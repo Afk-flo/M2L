@@ -20,7 +20,8 @@ if($_SESSION['user']['fonction'] == "formation") {
             session_destroy();
             include_once dispatcher::dispatch('Accueil');
             die();
-        } elseif($target === "VoirFormation") {
+        }
+        elseif($target === "VoirFormation") {
             require_once(dispatcher::dispatch('VoirFormation'));
             die();
         }
