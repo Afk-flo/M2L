@@ -1,17 +1,19 @@
 <?php
 
 class dtoContrat {
-    private string $idContrat;
-    private DateTime $dateDebut;
-    private DateTime $dateFin;
+    use Hydrate;
+    private $idContrat;
+    private $dateDebut;
+    private $dateFin;
     private string $typeContrat;
     private int $nbHeures;
+    private string $idUser;
 
-    public function getidContrat(){
+    public function getIdContrat(){
         return $this->idContrat;
     }
 
-    public function setidContrat($idContrat){
+    public function setIdContrat($idContrat){
         $this->idContrat = $idContrat;
     }
 
@@ -39,13 +41,24 @@ class dtoContrat {
         $this->typeContrat = $typeContrat;
     }
 
-    public function getnbHeures(){
+    public function getNbHeures(){
         return $this->nbHeures;
     }
 
     public function setNbHeures($nbHeures){
         $this->nbHeures = $nbHeures;
     }
+
+    public function setIdUser(string $idUser): void
+    {
+        $this->idUser = $idUser;
+    }
+
+    public function getIdUser(): string
+    {
+        return $this->idUser;
+    }
+
 
 
 }

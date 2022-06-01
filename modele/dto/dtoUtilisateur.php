@@ -6,10 +6,10 @@ class DtoUtilisateur{
     private string $prenom;
     private string $login;
     private string $mdp;
-    private string $fonction;
+    private $fonction;
     private string $token;
-    private string $club;
-    private string $ligue;
+    private $club;
+    private $ligue;
 
 
     //création des accesseurs getteurs et setteurs pour créer chaque utilisateur
@@ -51,13 +51,18 @@ class DtoUtilisateur{
         return $this->mdp;
     }
 
+    public function setIdUser(string $idUser): void
+    {
+        $this->idUser = $idUser;
+    }
+
 
     public function getIdUser(): string
     {
         return $this->idUser;
     }
 
-    public function getFonction(): string
+    public function getFonction()
     {
         return $this->fonction;
     }
@@ -80,6 +85,7 @@ class DtoUtilisateur{
     {
         return $this->club;
     }
+
     public function setClub($club)
     {
         $this->club = $club;
@@ -96,5 +102,3 @@ class DtoUtilisateur{
 
 
 }
-
-?>

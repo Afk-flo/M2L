@@ -12,23 +12,33 @@ class DaoContrat{
     public function getContrats(){
         try{
             $resultat=[];
-            $req = $this->db->prepare("SELECT * FROM CONTRAT");
+            $req =DaoDBConnex::getInstance()->prepare("SELECT * FROM contrat ");
             $req->execute();
-            $liste=$req->setFetchAll(PDO::FETCH_ASSOC);
+            $liste=$req->fetchAll(PDO::FETCH_ASSOC);
             if(!empty($liste)){
-                foreach($liste as $bulletin){
-                    $unBulletin = new BulletinDTO();
-                    $unBulletin->getidContrat();
-                    $unBulletin->getDateDebut();
-                    $unBulletin->getDateFin();
-                    $unBulletin->getTypeContrat();
-                    $unBulletin->getnbHeures();
-                    $unBulletin->getIdUser();
-                    $resultat[]=$unBulletin;
+                foreach($liste as $contrat){
+                    $unContrat = new dtoContrat();
+                    $unContrat->hydrate($contrat);
+
+                    $resultat[]=$unContrat;
                 }
             }
             return $resultat;
 
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function getContratsUser($idUser){
+
+        $req = $this->db->prepare('SELECT * FROM contrat WHERE idUser = ?');
+        $req->execute(array($idUser));
+
+        try {
+            $all = $req->fetchAll(PDO::FETCH_CLASS, 'dtoContrat');
+            return $all;
         }
         catch(Exception $e){
             die($e->getMessage());
@@ -48,7 +58,36 @@ class DaoContrat{
         }
     }
 
-    public function updateContrat($unContrat){
-
+    public function majContrat($unContrat){
+        try{
+            $req = $this->db->prepare("UPDATE contrat SET  dateDebut = ?, dateFin = ?, typeContrat = ?, nbHeures = ?, idUser = ? WHERE idContrat = ? ");
+            $req->execute(array($unContrat->getDateDebut(),$unContrat->getDateFin(), $unContrat->getTypeContrat(), $unContrat->getNbHeures(), $unContrat->getIdUser(),$unContrat->getIdContrat()));
+            return true;
+        }
+        catch(Exception $e){
+            return false;
+        }
     }
+
+    public function suppContrat($idContrat){
+        try{
+            $req = $this->db->prepare("DELETE FROM contrat WHERE idContrat =?");
+            $req->execute(array($idContrat));
+            return true;
+        }
+        catch (Exception $e){
+            return false;
+        }
+    }
+
+    public function ajoutContrat($unContrat){
+        try{
+            $req = $this->db->prepare('INSERT INTO contrat (dateDebut, dateFin, typeContrat, nbHeures, idUser) VALUES (?,?,?,?,?)');
+            $req->execute(array($unContrat->getDateDebut(), $unContrat->getDateFin(), $unContrat->getTypeContrat(), $unContrat->getNbHeures(), $unContrat->getIdUser()));
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
 }

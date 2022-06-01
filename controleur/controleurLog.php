@@ -26,7 +26,7 @@ if(!empty($_POST["login"]) && !empty($_POST["mdp"])){
                 require_once("../vue/vueIntervenantBenevole.php");
                 break;
             case 5:
-                $_SESSION['identification']['fonction'] = 'gerantrh';
+                $_SESSION['identification']['fonction'] = 'rh';
                 require_once("../vue/vueGerantRH.php");
                 break;
             default:

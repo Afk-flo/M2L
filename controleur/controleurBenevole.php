@@ -1,7 +1,8 @@
 <?php 
 
-if($_SESSION['user']['fonction'] == "benevole") {
-
+if(['fonction'] == "benevole") {
+    $user = new DaoUtilisateur();
+    $utilisateur = $user->getOneOrNull($_SESSION['user']['id']);
     // Vue formation pour les bénévoles 
 
     $benevole = new Menu("benevole");

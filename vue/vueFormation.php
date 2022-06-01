@@ -8,7 +8,7 @@
 		<div class='texteAccueil'>
 			<?php 
 			echo "<br/>";
-            echo "<h1 class='title1'> Bienvenu dans l'espace de gestion des formations " . $_SESSION['user']['nom'] . "</h1><br/>";
+            echo "<h1 class='title1'> Bienvenue dans l'espace de gestion des formations " . $_SESSION['user']['nom'] . "</h1><br/>";
         	echo "</div>";
 
 			// Mise en place des messages flashs si besoin
@@ -24,7 +24,7 @@
 			
 
             if(!isset($user)) {
-				$formulaireFormation->afficherFormulaire();
+				$formulaireForma->afficherFormulaire();
 			}
 		?>
 
@@ -34,19 +34,19 @@
 		// On se base sur un principe presque PWA 
 		if(isset($user)) {
 			echo "<br/>";
-            echo "<h3 class='title3'> Attribution des employés à la formation '". $forma->getIntitule() ."'</h3><br/>";
+            echo "<h3 class='title3'> Attribution des employés à la formation '". $contrat->getIntitule() ."'</h3><br/>";
 			echo "<br/>";
 			echo "<br/>";
 			echo "<br/>";
 			// Affichage pour le nombre en cours 
 			$count = new DaoParticipation();
-			$count = $count->getCount($forma->getIdFormation());
-			echo "<h3 class='title3'> Places disponibles : <span id='nbr'>".	$count["count(idForma)"] . "</span>/" . $forma->getNombreMax() . " </h3>";
+			$count = $count->getCount($contrat->getIdFormation());
+			echo "<h3 class='title3'> Places disponibles : <span id='nbr'>".	$count["count(idForma)"] . "</span>/" . $contrat->getNombreMax() . " </h3>";
 
 			echo "<div class='truc'>";
 			foreach($user as $user) {
 				$participation = new DaoParticipation();
-				$participation = $participation->getParticipation($user->getIdUser(), $forma->getIdFormation());
+				$participation = $participation->getParticipation($user->getIdUser(), $contrat->getIdFormation());
 				?>
 				<?php 
 				if($participation->getEtat() == "ATTENTE") {
@@ -65,8 +65,8 @@
 							?>
 							<p> Validez-vous cet utilisateur ? </p>
 							<div class="choix">
-								<button onclick="registreUser(<?php echo $forma->getIdFormation(); ?>,<?php echo $user->getIdUser(); ?>,'ACCEPTE',<?php echo $forma->getNombreMax() ?>,<?php echo $count['count(idForma)']; ?>)" id="oui"> Oui </button>
-								<button onclick="registreUser(<?php echo $forma->getIdFormation(); ?>,<?php echo $user->getIdUser(); ?>,'REFUSE',<?php echo $forma->getNombreMax() ?>,<?php echo $count['count(idForma)']; ?>)" id="non"> Non </button>
+								<button onclick="registreUser(<?php echo $contrat->getIdFormation(); ?>,<?php echo $user->getIdUser(); ?>,'ACCEPTE',<?php echo $contrat->getNombreMax() ?>,<?php echo $count['count(idForma)']; ?>)" id="oui"> Oui </button>
+								<button onclick="registreUser(<?php echo $contrat->getIdFormation(); ?>,<?php echo $user->getIdUser(); ?>,'REFUSE',<?php echo $contrat->getNombreMax() ?>,<?php echo $count['count(idForma)']; ?>)" id="non"> Non </button>
 								<span id="info"></span>
 							</div>
 							<?php

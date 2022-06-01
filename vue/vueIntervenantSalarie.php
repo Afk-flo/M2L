@@ -6,18 +6,16 @@ par contre le menu va changer entre les deux
 		<?php include 'haut.php' ;?>
 	</header>
 	<main>
-        <div class='gauche'>
-            <p>Bienvenue !</p>
-        </div>
-        <div class='droite'>
-            <p>Bonjour !</p><br>
-            <h3>Voici vos informations personnelles</h3>
-            <br><br>
-            <p>Prénom</p>
-            <p>Ligue</p>
-            <p>Club</p>
 
-        </div>
+        <h1>Bonjour !</h1>
+        <h3>Voici vos informations personnelles</h3>
+        <br>
+        <p>Nom : <?php echo $utilisateur->getNom();?> </p>
+        <p>Prenom : <?php echo $utilisateur->getPrenom();?> </p>
+        <p>Login : <?php echo $utilisateur->getLogin();?> </p>
+        <p>Fonction :<?php echo $utilisateur->getFonction();?> </p>
+        <p>Club : <?php echo $utilisateur->getClub();?> </p>
+        <p>Ligue : <?php echo $utilisateur->getLigue();?> </p>
 
 	</main>
 	<footer>

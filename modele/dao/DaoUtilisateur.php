@@ -93,6 +93,21 @@ class DaoUtilisateur {
         }
     }
 
+    public function getAllSalarie() : ?array {
+        // On récupère la liste
+        $req = $this->db->prepare('SELECT * FROM utilisateur WHERE idFonct = 1');
+        $req->execute();
+
+        // On récupère si possible
+        try {
+            $full = $req->fetchAll(PDO::FETCH_CLASS, 'DtoUtilisateur');
+            return $full;
+
+        } catch(Exception $e) {
+            return null;
+        }
+    }
+
 
     /**
      * Permet de créer un utilisateur dans la base de données
@@ -101,7 +116,30 @@ class DaoUtilisateur {
      * @return void
      */
     public function create(DtoUtilisateur $user) : void {
+        /*
+         * $req = $this->db->prepare("SELECT login FROM utilisateur where login = ?");
+         * $req->execute(array($user->getLogin()));
+         * $req->fetch();
+         * if($req->rowCount() != 0) {
+         * $_SESSION['error'] = "Problème d'inscription!";
+         * }
+         */
 
+        $mdp = password_hash($user->getMdp(), PASSWORD_DEFAULT);
+
+        // Création du token aléatoire
+        $token = strval(openssl_random_pseudo_bytes(25));
+        $token = hash('SHA256', $token);
+
+        // Envoie db
+        try {
+            // A terminer
+            $req = $this->db->prepare("INSERT INTO utilisateur (nom,prenom, login, mdp, token, idFonct, idLigue, idClub ) VALUES (?,?,?,?,?,?,?,?)");
+            $req->execute(array($user->getNom(), $user->getPrenom(), $user->getLogin(), $mdp, $token, $user->getFonction(), $user->getLigue(), $user->getClub()));
+
+        } catch(Exception $e) {
+            die($e->getMessage());
+        }
     }
 
     /**
@@ -111,7 +149,15 @@ class DaoUtilisateur {
      * @return bool
      */
     public function update(DtoUtilisateur $user) : bool {
-        return true;
+        try {
+
+            $req = $this->db->prepare('UPDATE utilisateur SET nom = ?, prenom = ?, login = ?,idFonct = ?, idLigue = ?, idClub = ? WHERE idUser = ?');
+            $req->execute(array($user->getNom(), $user->getPrenom(),$user->getLogin(), $user->getFonction(), $user->getLigue(), $user->getClub(), $user->getIdUser()));
+            return true;
+
+        } catch(Exception $e) {
+            die($e->getMessage());
+        }
     }
 
 
@@ -122,7 +168,15 @@ class DaoUtilisateur {
      * @return bool action true¬false sur execution
      */
     public function delete(int $id) : bool {
-        return true;
+        try{
+            $req = $this->db->prepare("DELETE FROM utilisateur WHERE idUser =?");
+            $req->execute(array($id));
+            return true;
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+
+        }
     }
 
 

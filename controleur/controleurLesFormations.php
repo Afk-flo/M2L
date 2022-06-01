@@ -34,53 +34,53 @@ foreach($formations as $formations) {
 }
 
 
-$formulaireFormation = new Formulaire('post','index.php','ajoutFormation','ajoutFormation');
+$formulaireForma = new Formulaire('post','index.php','ajoutFormation','ajoutFormation');
     
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerTitre("Ajouter une formation"));
-$formulaireFormation->ajouterComposantTab();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerTitre("Ajouter une formation"));
+$formulaireForma->ajouterComposantTab();
 
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerLabel("Intitulé de la formation"));
-$formulaireFormation->ajouterComposantTab();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerLabel("Intitulé de la formation"));
+$formulaireForma->ajouterComposantTab();
 
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputTexte("intitFom", "initiForm", 0, 1, 'Titre de votre formation : "Comment remplir une note de frais.."', null));
-$formulaireFormation->ajouterComposantTab();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerInputTexte("intitFom", "initiForm", 0, 1, 'Titre de votre formation : "Comment remplir une note de frais.."', null));
+$formulaireForma->ajouterComposantTab();
 
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerLabel("Descriptif de la formation"));
-$formulaireFormation->ajouterComposantTab();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerLabel("Descriptif de la formation"));
+$formulaireForma->ajouterComposantTab();
 
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputTexte("descri", "descri", 0, 1, 'Description de votre formation', null));
-$formulaireFormation->ajouterComposantTab();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerInputTexte("descri", "descri", 0, 1, 'Description de votre formation', null));
+$formulaireForma->ajouterComposantTab();
 
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerLabel("Nombre maxmim de participants : "));
-$formulaireFormation->ajouterComposantTab();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerLabel("Nombre maxmim de participants : "));
+$formulaireForma->ajouterComposantTab();
 
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputTexte("nbrMax", "nbrMax", 0, 1, 'Nombre maximum de participants', null));
-$formulaireFormation->ajouterComposantTab();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerInputTexte("nbrMax", "nbrMax", 0, 1, 'Nombre maximum de participants', null));
+$formulaireForma->ajouterComposantTab();
 
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerLabel("Début date ouverture des inscriptions : "));
-$formulaireFormation->ajouterComposantTab();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerLabel("Début date ouverture des inscriptions : "));
+$formulaireForma->ajouterComposantTab();
 
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputDate("debutIns", "debutIns", "required"));
-$formulaireFormation->ajouterComposantTab();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerInputDate("debutIns", "debutIns", "required"));
+$formulaireForma->ajouterComposantTab();
 
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerLabel("Fin date des inscriptions : "));
-$formulaireFormation->ajouterComposantTab();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerLabel("Fin date des inscriptions : "));
+$formulaireForma->ajouterComposantTab();
 
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputDate("finIns", "finIns", "required"));
-$formulaireFormation->ajouterComposantTab();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerInputDate("finIns", "finIns", "required"));
+$formulaireForma->ajouterComposantTab();
 
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerLabel("Début date formation : "));
-$formulaireFormation->ajouterComposantTab();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerLabel("Début date formation : "));
+$formulaireForma->ajouterComposantTab();
 
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputDate("debutFor", "debutFor", "required"));
-$formulaireFormation->ajouterComposantTab();
-
-
-$formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputSubmit('ajoutFormation','ajoutFormation',"Créer la formation"));
-$formulaireFormation->ajouterComposantTab();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerInputDate("debutFor", "debutFor", "required"));
+$formulaireForma->ajouterComposantTab();
 
 
-$formulaireFormation->creerFormulaire();
+$formulaireForma->ajouterComposantLigne($formulaireForma->creerInputSubmit('ajoutFormation','ajoutFormation',"Créer la formation"));
+$formulaireForma->ajouterComposantTab();
+
+
+$formulaireForma->creerFormulaire();
 
 
 if(isset($_GET['id']) && isset($_GET['action'])) {
@@ -101,52 +101,52 @@ if(isset($_GET['id']) && isset($_GET['action'])) {
 
         $_SESSION['idForma'] = htmlspecialchars($_GET['id']);
 
-        $formulaireFormation = new Formulaire('post','index.php','modifForma','modifForma');
+        $formulaireForma = new Formulaire('post','index.php','modifForma','modifForma');
             
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerTitre("Modifier une formation"));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerTitre("Modifier une formation"));
+        $formulaireForma->ajouterComposantTab();
 
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerLabel("Intitulé de la formation"));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerLabel("Intitulé de la formation"));
+        $formulaireForma->ajouterComposantTab();
 
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputTexte("intitFom", "initiForm", $formation->getIntitule(), 1, '', null));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerInputTexte("intitFom", "initiForm", $formation->getIntitule(), 1, '', null));
+        $formulaireForma->ajouterComposantTab();
 
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerLabel("Descriptif de la formation"));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerLabel("Descriptif de la formation"));
+        $formulaireForma->ajouterComposantTab();
 
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputTexte("descri", "descri", $formation->getDescriptif(), 1, '', null));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerInputTexte("descri", "descri", $formation->getDescriptif(), 1, '', null));
+        $formulaireForma->ajouterComposantTab();
 
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerLabel("Nombre maxmim de participants : "));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerLabel("Nombre maxmim de participants : "));
+        $formulaireForma->ajouterComposantTab();
 
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputTexte("nbrMax", "nbrMax", $formation->getNombreMax(), 1, '', null));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerInputTexte("nbrMax", "nbrMax", $formation->getNombreMax(), 1, '', null));
+        $formulaireForma->ajouterComposantTab();
 
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerLabel("Début date ouverture des inscriptions : "));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerLabel("Début date ouverture des inscriptions : "));
+        $formulaireForma->ajouterComposantTab();
 
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputDate("debutIns", "debutIns", "required", $dateDebutInscription));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerInputDate("debutIns", "debutIns", "required", $dateDebutInscription));
+        $formulaireForma->ajouterComposantTab();
 
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerLabel("Fin date ouverture des inscriptions : "));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerLabel("Fin date ouverture des inscriptions : "));
+        $formulaireForma->ajouterComposantTab();
 
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputDate("finIns", "finIns", "required", $dateFinInscription));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerInputDate("finIns", "finIns", "required", $dateFinInscription));
+        $formulaireForma->ajouterComposantTab();
 
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerLabel("Début date formation : "));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerLabel("Début date formation : "));
+        $formulaireForma->ajouterComposantTab();
 
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputDate("debutFor", "debutFor", "required", $dateDebut));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerInputDate("debutFor", "debutFor", "required", $dateDebut));
+        $formulaireForma->ajouterComposantTab();
 
-        $formulaireFormation->ajouterComposantLigne($formulaireFormation->creerInputSubmit('modifForma','modifForma',"Modifier la formation"));
-        $formulaireFormation->ajouterComposantTab();
+        $formulaireForma->ajouterComposantLigne($formulaireForma->creerInputSubmit('modifForma','modifForma',"Modifier la formation"));
+        $formulaireForma->ajouterComposantTab();
 
 
-        $formulaireFormation->creerFormulaire();
+        $formulaireForma->creerFormulaire();
 
 
     } elseif($_GET['action'] === "attribution") {

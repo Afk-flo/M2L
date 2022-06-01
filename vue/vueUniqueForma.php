@@ -10,7 +10,7 @@
 
         echo "<h1 class='title1'> Bienvenu dans l'espace de gestion des formations " . $_SESSION['user']['nom'] . "</h1><br/>";
         echo "<br/>";
-        echo "<h3 class='title3'> Liste des employés participant à la formation '". $forma->getIntitule() ."'</h3><br/>";
+        echo "<h3 class='title3'> Liste des employés participant à la formation '". $contrat->getIntitule() ."'</h3><br/>";
 
 
         // Affichage des participants de manière sympa
