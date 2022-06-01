@@ -8,7 +8,13 @@ $users = $user->getAllSalarie();
 $dir = 'C:\xampp\htdocs\Nouveau dossier\M2L\doc_bulletin';
 $scandir = array();
 $scandir = scandir($dir,1);
-var_dump($scandir);
+//var_dump($scandir);
+$fichiers = array();
+foreach($scandir as $f){
+    array_push($fichiers,$f);
+}
+
+var_dump($fichiers);
 $formulaireContrat = new Formulaire('post','index.php','ajoutBulletin','ajoutBulletin');
 
 $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerTitre("Ajouter un bulletin"));
@@ -30,7 +36,7 @@ $formulaireContrat->ajouterComposantTab();
 
 
 
-$formulaireContrat->ajouterComposantLigne($formulaireContrat->creerSelect("pdf", "pdf","pdf", "<?php foreach ($scandir as $f) { echo $f; } ?>"));
+$formulaireContrat->ajouterComposantLigne($formulaireContrat->creerSelect("pdf", "pdf","pdf", $fichiers));
 $formulaireContrat->ajouterComposantTab();
 
 
