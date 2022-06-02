@@ -153,7 +153,7 @@ if(isset($_GET['id']) && isset($_GET['action'])) {
         // Si l'attribution est activé (on masque tout et hop)
         $id = htmlspecialchars($_GET['id']);
         $forma = new DaoFormation();
-        $forma = $forma->getOne($id);
+        $contrat = $forma->getOne($id);
 
         // Mise en place utilisateur :)
         $user = new DaoFormation();
