@@ -101,14 +101,15 @@ class Formulaire{
 		$composant = "<label for='" . $unFor . "'>" . $unLabel . "</label>";
 		return $composant;
 	}
-
-	public function creerSelect($unNom, $unId, $unLabel, $options){
+    
+	public function creerSelect($unNom, $unId, $unLabel, $options)
+    {
 		$composant = "<select  name = '" . $unNom . "' id = '" . $unId . "' >";
 		foreach ($options as $option){
 			$composant .= $option ;
 		}
 		$composant .= "</select></td></tr>";
-		return $composant;
+
 	}	
 	
 	public function creerInputSubmit($unNom, $unId, $uneValue){
