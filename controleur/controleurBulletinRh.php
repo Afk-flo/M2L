@@ -5,48 +5,47 @@ $bulletins=$bulletin->getBulletinsContrat($_GET['id']);
 
 $user= new DaoUtilisateur();
 $users = $user->getAllSalarie();
-$dir = 'C:\xampp\htdocs\Nouveau dossier\M2L\doc_bulletin';
+$dir = 'M2L\doc_bulletin';
 $scandir = array();
 $scandir = scandir($dir,1);
-//var_dump($scandir);
+
 $fichiers = array();
 foreach($scandir as $f){
     array_push($fichiers,$f);
 }
 
-var_dump($fichiers);
-$formulaireContrat = new Formulaire('post','index.php','ajoutBulletin','ajoutBulletin');
-
-$formulaireContrat->ajouterComposantLigne($formulaireContrat->creerTitre("Ajouter un bulletin"));
-$formulaireContrat->ajouterComposantTab();
-
-$formulaireContrat->ajouterComposantLigne($formulaireContrat->creerLabel("Mois"));
-
-$formulaireContrat->ajouterComposantLigne($formulaireContrat->creerInputTexte("mois", "mois", 0, 1, '', null));
-$formulaireContrat->ajouterComposantTab();
-
-$formulaireContrat->ajouterComposantLigne($formulaireContrat->creerLabel("Année"));
-
-$formulaireContrat->ajouterComposantLigne($formulaireContrat->creerInputTexte("annee", "annee", 0, 1, '', null));
-$formulaireContrat->ajouterComposantTab();
 
 
-$formulaireContrat->ajouterComposantLigne($formulaireContrat->creerLabel("Choisir un bulletin :"));
-$formulaireContrat->ajouterComposantTab();
+$formulaireBulletin = new Formulaire('post','index.php','ajoutBulletin','ajoutBulletin');
+
+$formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerTitre("Ajouter un bulletin"));
+$formulaireBulletin->ajouterComposantTab();
+
+$formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerLabel("Mois"));
+
+$formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerInputTexte("mois", "mois", 0, 1, '', null));
+$formulaireBulletin->ajouterComposantTab();
+
+$formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerLabel("Année"));
+
+$formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerInputTexte("annee", "annee", 0, 1, '', null));
+$formulaireBulletin->ajouterComposantTab();
 
 
+$formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerLabel("Choisir un bulletin :"));
+$formulaireBulletin->ajouterComposantTab();
 
-$formulaireContrat->ajouterComposantLigne($formulaireContrat->creerSelect("pdf", "pdf","pdf", $fichiers));
-$formulaireContrat->ajouterComposantTab();
-
-
-
-$formulaireContrat->ajouterComposantLigne($formulaireContrat->creerInputSubmit('ajoutBulletin','ajoutBulletin',"Créer un contrat"));
-$formulaireContrat->ajouterComposantTab();
+$formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerSelect("pdf", "pdf","pdf", $fichiers));
+$formulaireBulletin->ajouterComposantTab();
 
 
 
-$formulaireContrat->creerFormulaire();
+$formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerInputSubmit('ajoutBulletin','ajoutBulletin',"Créer un contrat"));
+$formulaireBulletin->ajouterComposantTab();
+
+
+
+$formulaireBulletin->creerFormulaire();
 
 
 if(isset($_GET['action'])) {
@@ -57,44 +56,41 @@ if(isset($_GET['action'])) {
     } else if ($_GET['action'] === "modifBulletin") {
 
         $bulletin = new DaoBulletin();
-        $bulletin->suppBulletin($_GET['id']);
+        $bulletin->majBulletin($_GET['id']);
 
-        $bulletin = new DaoContrat();
-        $bull = $bulletin->getUnContrat(htmlspecialchars($_GET['id']));
+        $bulletin = new DaoBulletin();
+        $bull = $bulletin->getUnBulletin(htmlspecialchars($_GET['id']));
 
-        $formulaireContrat = new Formulaire('post', 'index.php', 'modifBulletin', 'modifBulletin');
+        $formulaireBulletin = new Formulaire('post', 'index.php', 'modifBulletin', 'modifBulletin');
 
-        $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerTitre("Modifier un Bulletin"));
-        $formulaireContrat->ajouterComposantTab();
+        $formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerTitre("Modifier un Bulletin"));
+        $formulaireBulletin->ajouterComposantTab();
 
-        $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerLabel("Mois"));
+        $formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerLabel("Mois"));
 
-        $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerInputTexte("mois", "mois", 0, 1, '', null));
-        $formulaireContrat->ajouterComposantTab();
+        $formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerInputTexte("mois", "mois", $bull->getMoisBull(), 1, '', null));
+        $formulaireBulletin->ajouterComposantTab();
 
-        $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerLabel("Année"));
+        $formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerLabel("Année"));
 
-        $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerInputTexte("annee", "annee", 0, 1, '', null));
-        $formulaireContrat->ajouterComposantTab();
-
-
-        $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerLabel("Choisir un bulletin :"));
-        $formulaireContrat->ajouterComposantTab();
-
-        foreach($scandir as $fichier){
-            $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerSelect("pdf", "pdf","pdf","/doc_bulletin/"));
-            $formulaireContrat->ajouterComposantTab();
-        }
+        $formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerInputTexte("annee", "annee", $bull->getAnneeBull(), 1, '', null));
+        $formulaireBulletin->ajouterComposantTab();
 
 
+        $formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerLabel("Choisir un bulletin :"));
+        $formulaireBulletin->ajouterComposantTab();
 
-        $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerInputSubmit('modifBulletin','modifBulletin',"Modifier un Bulletin"));
-        $formulaireContrat->ajouterComposantTab();
+        $formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerSelect("pdf", "pdf","pdf", $fichiers));
+        $formulaireBulletin->ajouterComposantTab();
+
+        $formulaireBulletin->ajouterComposantLigne($formulaireBulletin->creerInputSubmit('modifBulletin','modifBulletin',"Modifier un Bulletin"));
+        $formulaireBulletin->ajouterComposantTab();
 
 
-        $formulaireContrat->creerFormulaire();
+        $formulaireBulletin->creerFormulaire();
 
     }
+
 }
 
 require_once("vue/vueBulletinRh.php");
