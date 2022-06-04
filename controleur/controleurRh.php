@@ -43,16 +43,16 @@ if ($_SESSION['user']['fonction'] == "rh") {
             $idContrat = Securite::nettoyage($_SESSION['id']);
 
 
-            $contrat = new dtoContrat();
-            $contrat->setDateDebut($dateDebut);
-            $contrat->setDateFin($dateFin);
-            $contrat->setNbHeures($nbHeures);
-            $contrat->setTypeContrat($typeContrat);
-            $contrat->setIdUser($salarie);
-            $contrat->setIdContrat($idContrat);
+            $bulletin = new dtoContrat();
+            $bulletin->setDateDebut($dateDebut);
+            $bulletin->setDateFin($dateFin);
+            $bulletin->setNbHeures($nbHeures);
+            $bulletin->setTypeContrat($typeContrat);
+            $bulletin->setIdUser($salarie);
+            $bulletin->setIdContrat($idContrat);
 
             $action = new DaoContrat();
-            $action->majContrat($contrat);
+            $action->majContrat($bulletin);
 
             require_once (dispatcher::dispatch("contratsResp"));
             die();
@@ -63,25 +63,24 @@ if ($_SESSION['user']['fonction'] == "rh") {
 
     if (isset($_POST['ajoutContrat'])) {
         //if (!empty($_POST['debutContrat']) && !empty($_POST['finContrat']) && !empty($_POST['nbHeures'] && !empty($_POST['typeContrat']) && !empty($_POST['user']))) {
-        var_dump($_POST['ajoutContrat']);
         $dateDebut = Securite::nettoyage($_POST['debutContrat']);
         $dateFn = Securite::nettoyage($_POST['finContrat']);
         $nbHeures = Securite::nettoyage($_POST['nbHeures']);
         $typeContrat = Securite::nettoyage($_POST['typeContrat']);
         $salarie = Securite::nettoyage($_POST['user']);
 
-        $contrat = new dtoContrat();
-        $contrat->setDateDebut($dateDebut);
-        $contrat->setDateFin($dateDebut);
-        $contrat->setNbHeures($nbHeures);
-        $contrat->setTypeContrat($typeContrat);
-        $contrat->setIdUser($salarie);
+        $bulletin = new dtoContrat();
+        $bulletin->setDateDebut($dateDebut);
+        $bulletin->setDateFin($dateDebut);
+        $bulletin->setNbHeures($nbHeures);
+        $bulletin->setTypeContrat($typeContrat);
+        $bulletin->setIdUser($salarie);
 
 
         $action = new DaoContrat();
-        $action->ajoutContrat($contrat);
+        $action->ajoutContrat($bulletin);
 
-        require_once (dispatcher::dispatch("ContratsResp"));
+        require_once (dispatcher::dispatch("contratsResp"));
         die();
     }
 
@@ -155,14 +154,27 @@ if ($_SESSION['user']['fonction'] == "rh") {
         $action = new DaoBulletin();
         $action->creerBulletin($bulletin);
 
-        require_once (dispatcher::dispatch("bulletinRh"));
+        require_once (dispatcher::dispatch("BulletinRh"));
         die();
     }
 
     if(isset($_POST['modifBulletin'])){
+        $mois = Securite::nettoyage($_POST['mois']);
+        $annee = Securite::nettoyage($_POST['annee']);
+        $bulletinPDF = Securite::nettoyage($_POST['bulletinPDF']);
 
+
+        $bulletin = new dtoBulletin();
+        $bulletin->setMoisBull($mois);
+        $bulletin->setAnneeBull($annee);
+        $bulletin->setBulletinpdf($bulletinPDF);
+
+        $action = new DaoBulletin();
+        $action->majBulletin($bulletin);
+
+        require_once (dispatcher::dispatch("BulletinRh"));
+        die();
     }
 
     require_once("vue/vueGerantRH.php");
-
 

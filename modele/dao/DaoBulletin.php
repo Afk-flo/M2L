@@ -37,8 +37,9 @@ class DaoBulletin{
 
     public function majBulletin($unBulletin){
         try{
+            $unBulletin = new DtoBulletin();
             $req = $this->db->prepare("UPDATE bulletin SET  mois = ?, annee = ?, bulletinPDF = ?, idContrat = ? WHERE idBulletin = ? ");
-            $req->execute(array($unBulletin->getMoisBull(),$unBulletin->getAnneeBull(), $unBulletin->getBulletinPDF(), $unBulletin->getBulletinpdf(), $unBulletin->getBulletinpdf(), $unBulletin->getIdContrat(), $unBulletin->getIdBulletin()));
+            $req->execute(array($unBulletin->getMoisBull(),$unBulletin->getAnneeBull(), $unBulletin->getBulletinPDF(), $unBulletin->getIdContrat(),$unBulletin->getIdBulletin()));
             return true;
         }
         catch(Exception $e){
