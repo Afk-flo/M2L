@@ -41,6 +41,7 @@
             <div class="container">
                 <?php
                 $formulaireContrat->afficherFormulaire();
-
                 ?>
             </div>
+        </div>
+    </main>

@@ -175,6 +175,72 @@ if ($_SESSION['user']['fonction'] == "rh") {
         require_once (dispatcher::dispatch("BulletinRh"));
         die();
     }
+    if(($_SESSION['identification']['page'] = 'accueilRh')){
+    $fonction = new DaoFonction();
+    $fonctions = $fonction->getFonctions();
 
-    require_once("vue/vueGerantRH.php");
+    $ligue = new DaoLigue();
+    $ligues = $ligue->getLigues();
+
+    $club = new DaoClub();
+    $clubs = $club->getClubs();
+
+
+    $utilisateur = new DaoUtilisateur();
+    $user1 = $utilisateur->getOneOrNull(htmlspecialchars($_SESSION['user']['id']));
+    $formulaireContrat = new Formulaire('post', 'index.php', 'majUser', 'majUser');
+
+    $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerTitre("Modifier un utilisateur"));
+    $formulaireContrat->ajouterComposantTab();
+
+    $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerLabel("Nom : "));
+
+    $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerInputTexte("nom", "nom", $user1->getNom(), 1, '', null));
+    $formulaireContrat->ajouterComposantTab();
+
+    $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerLabel("Prénom : "));
+
+    $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerInputTexte("prenom", "prenom", $user1->getPrenom(), 1, '', null));
+    $formulaireContrat->ajouterComposantTab();
+
+    $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerLabel("Login : "));
+
+    $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerInputTexte("login", "login", $user1->getLogin(), 1, '', null));
+    $formulaireContrat->ajouterComposantTab();
+
+
+    $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerLabel("Fonction : "));
+
+
+    foreach ($fonctions as $fonctions) {
+        $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerRadio("fonction", $fonctions->getLibelle(), $fonctions->getidFonct(), $fonctions->getidFonct()));
+        $formulaireContrat->ajouterComposantTab();
+    }
+
+    $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerLabel("Ligue : "));
+
+    foreach ($ligues as $ligues) {
+        $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerRadio("ligue", $ligues->getNomLigue(), $ligues->getIdLigue(), $ligues->getIdLigue()));
+        $formulaireContrat->ajouterComposantTab();
+    }
+
+    $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerLabel("Club : "));
+
+    foreach ($clubs as $clubs) {
+        $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerRadio("club", $clubs->getNomClub(), $clubs->getIdClub(), $clubs->getIdClub()));
+        $formulaireContrat->ajouterComposantTab();
+    }
+
+
+    $formulaireContrat->ajouterComposantLigne($formulaireContrat->creerInputSubmit('majUser', 'majUser', "Modifier un utilisateur"));
+    $formulaireContrat->ajouterComposantTab();
+
+
+    $formulaireContrat->creerFormulaire();
+require_once("vue/vueGerantRH.php");
+
+}
+
+
+
 

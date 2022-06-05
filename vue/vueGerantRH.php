@@ -3,13 +3,16 @@
         <?php include 'haut.php' ;?>
     </header>
     <main>
-        <div class='gauche'>
-            <p>Bienvenue !</p>
-        </div>
-        <div class='droite'>
+
+        <div class='texteAccueil'>
             <p>Bonjour !</p><br>
             <h3>Voici vos informations personnelles</h3>
             <br><br>
+
+            <?php
+            $formulaireContrat->afficherFormulaire();
+
+            ?>
 
 
         </div>

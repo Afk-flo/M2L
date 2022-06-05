@@ -8,8 +8,6 @@
             echo '<br/>';
             echo "<h1 class='title1'> Gérer vos contrats </h1></br>";
             echo '</div>';
-
-            //affichage différent selon le user
             ?>
 
         <table>
@@ -19,7 +17,7 @@
             <th>Date Debut</th>
             <th>Date Fin</th>
             <th>Type Contrat</th>
-            <th>Nombre d'heures</th>63
+            <th>Nombre d'heures</th>
         </tr>
 
         <?php

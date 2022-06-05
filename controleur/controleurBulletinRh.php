@@ -5,7 +5,7 @@ $bulletins=$bulletin->getBulletinsContrat($_GET['id']);
 
 $user= new DaoUtilisateur();
 $users = $user->getAllSalarie();
-$dir = 'M2L\doc_bulletin';
+$dir = 'C:\xampp\htdocs\Nouveau dossier\M2L\doc_bulletin';
 $scandir = array();
 $scandir = scandir($dir,1);
 

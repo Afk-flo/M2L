@@ -1,9 +1,8 @@
 <?php 
 
-if(['fonction'] == "benevole") {
+if($_SESSION['user']['fonction'] == "benevole") {
     $user = new DaoUtilisateur();
     $utilisateur = $user->getOneOrNull($_SESSION['user']['id']);
-    // Vue formation pour les bénévoles 
 
     $benevole = new Menu("benevole");
 
@@ -18,8 +17,10 @@ if(['fonction'] == "benevole") {
         if($target == "formations") {
             require_once(dispatcher::dispatch('BEFormation'));
             die();
-        } else {
-            require_once("vue/vueIntervenantBenevole.php");
+        } elseif ($target === "deconnexion") {
+            $_SESSION['user'] = [];
+            session_destroy();
+            include_once dispatcher::dispatch('Accueil');
             die();
         }
     }
